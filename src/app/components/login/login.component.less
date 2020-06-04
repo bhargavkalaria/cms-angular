@@ -1,0 +1,49 @@
+@import "../../../theme.less";
+
+.login-main {
+  height: 100vh;
+  width: 100vw;
+
+  .login-right {
+    padding: 30px !important;
+    border-radius: 10px !important;
+    box-shadow: 0 0 10px 0 #ecedf1;
+
+    .login-right--header {
+      text-align: center;
+      color: @text-color-secondary;
+
+      .blueDivider {
+        border-top: 2px solid @primary-color;
+        height: 1px;
+        width: 30%;
+        margin: 30px auto;
+      }
+    }
+
+    .login-form-margin {
+      margin-bottom: 16px;
+    }
+
+    .login-form-forgot {
+      float: right;
+    }
+
+    .login-form-button {
+      width: 100%;
+    }
+
+    .login-form-button {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .login-left {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+
+

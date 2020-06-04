@@ -1,0 +1,81 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar"
+            nzCollapsible
+            nzWidth="256px"
+            nzBreakpoint="md"
+            [(nzCollapsed)]="isCollapsed"
+            [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <a>
+        <img src="../../assets/images/cms-logo.png" alt="logo">
+        <h1>Hello Admin</h1>
+      </a>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-menu-item routerLink="home" routerLinkActive="ant-menu-item-selected">
+        <i nz-icon nzType="dashboard"></i>
+        <span>Dashboard</span>
+      </li>
+      <li nz-submenu nzTitle="Campaign" nzIcon="notification">
+        <ul>
+          <li nz-menu-item routerLink="campaign-list" routerLinkActive="ant-menu-item-selected">Campaign</li>
+          <li nz-menu-item routerLink="quick-campaign-list" routerLinkActive="ant-menu-item-selected">Quick Campaign</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Reports" nzIcon="area-chart" routerLinkActive="ant-menu-item-selected">
+        <ul>
+          <li nz-menu-item routerLink="report" routerLinkActive="ant-menu-item-selected">Data reports</li>
+          <li nz-menu-item routerLink="graph" routerLinkActive="ant-menu-item-selected">Graph</li>
+        </ul>
+      </li>
+      <li nz-menu-item routerLink="upload-spreadsheet" routerLinkActive="ant-menu-item-selected">
+        <i nz-icon nzType="upload"></i>
+        <span>Upload SpreadSheet</span>
+      </li>
+      <li nz-menu-item routerLink="email-list" routerLinkActive="ant-menu-item-selected">
+        <i nz-icon nzType="snippets"></i>
+        <span>Email Templates</span>
+      </li>
+      <li nz-menu-item routerLink="brand-list" routerLinkActive="ant-menu-item-selected">
+        <i nz-icon nzType="bold"></i>
+        <span>Brands</span>
+      </li>
+      <li nz-menu-item routerLink="roles-list" routerLinkActive="ant-menu-item-selected">
+        <i nz-icon nzType="usergroup-add"></i>
+        <span>Roles</span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <div>
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <i class="trigger"
+               nz-icon
+               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></i>
+        </span>
+        </div>
+        <div>
+          <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click">
+            Admin
+            <i nz-icon nzType="down"></i>
+          </a>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu nzSelectable>
+              <li nz-menu-item (click)="showLogoutConfirmation()">Logout</li>
+              <li nz-menu-item>Reset Password</li>
+              <li nz-menu-item>Add User</li>
+            </ul>
+          </nz-dropdown-menu>
+        </div>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
