@@ -58,14 +58,14 @@ export class LoginComponent implements OnInit {
       this.resetId = this.activatedRoute.snapshot.queryParams.id;
       this.status = 'reset-password';
     }
+    this.userService.checkLogin();
   }
 
   doLogin(): void {
     if (this.userForm.valid) {
       if (this.userForm.value.password.trim()) {
         this.userService.login(this.userForm.value).then(result => {
-          localStorage.setItem('user', this.userForm.value.Email);
-          this.router.navigate(['dashboard']);
+          this.userService.setUserData(result, this.userForm.value.RememberMe);
         }).catch(error => {
           this.notificationService.createNotification(
             this.notificationService.notificationError,

@@ -13,6 +13,7 @@ import {en_US, NgZorroAntdModule, NZ_I18N, NzConfig, NZ_CONFIG} from 'ng-zorro-a
 import {UserService} from './services/user.service';
 import {ResponsesComponent} from './components/responses/responses.component';
 import {NotificationService} from './services/notification.service';
+import {EncryptDecryptService} from './services/encrypt-decrypt.service';
 
 registerLocaleData(en);
 const ngZorroConfig: NzConfig = {
@@ -39,7 +40,8 @@ const ngZorroConfig: NzConfig = {
       provide: NZ_CONFIG, useValue: ngZorroConfig
     },
     UserService,
-    NotificationService
+    NotificationService,
+    EncryptDecryptService
   ],
   bootstrap: [AppComponent]
 })

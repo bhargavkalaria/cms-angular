@@ -8,7 +8,7 @@
     <div class="sidebar-logo">
       <a>
         <img src="../../assets/images/cms-logo.png" alt="logo">
-        <h1>Hello Admin</h1>
+        <h1>Welcome {{userName}}</h1>
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
@@ -19,7 +19,8 @@
       <li nz-submenu nzTitle="Campaign" nzIcon="notification">
         <ul>
           <li nz-menu-item routerLink="campaign-list" routerLinkActive="ant-menu-item-selected">Campaign</li>
-          <li nz-menu-item routerLink="quick-campaign-list" routerLinkActive="ant-menu-item-selected">Quick Campaign</li>
+          <li nz-menu-item routerLink="quick-campaign-list" routerLinkActive="ant-menu-item-selected">Quick Campaign
+          </li>
         </ul>
       </li>
       <li nz-submenu nzTitle="Reports" nzIcon="area-chart" routerLinkActive="ant-menu-item-selected">
@@ -59,14 +60,14 @@
         </div>
         <div>
           <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click">
-            Admin
+            {{userName}}
             <i nz-icon nzType="down"></i>
           </a>
           <nz-dropdown-menu #menu="nzDropdownMenu">
             <ul nz-menu nzSelectable>
               <li nz-menu-item (click)="showLogoutConfirmation()">Logout</li>
               <li nz-menu-item (click)="showResetPasswordModal()">Reset Password</li>
-              <li nz-menu-item>Add User</li>
+              <li nz-menu-item *ngIf="role.toLowerCase() === 'admin' || 'superadmin'" routerLink="/register-user">Add User</li>
             </ul>
           </nz-dropdown-menu>
         </div>

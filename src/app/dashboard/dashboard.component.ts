@@ -17,6 +17,8 @@ export class DashboardComponent implements OnInit {
   resetNewPassword = Constant.resetNewPassword;
   resetPassword: FormGroup;
   isConfirmLoading = false;
+  userName = '';
+  role = '';
 
   constructor(private modalService: NzModalService,
               public userService: UserService,
@@ -29,6 +31,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userName = this.userService.getUserName();
+    this.role = this.userService.checkRoles();
   }
 
   resetPasswordCancel(): void {
@@ -47,7 +51,7 @@ export class DashboardComponent implements OnInit {
 
   resetPasswordOk(): void {
     this.isConfirmLoading = true;
-    this.resetPassword.value.email = this.userService.getUser();
+    this.resetPassword.value.email = this.userService.getUserEmail();
     this.userService.resetPassword(this.resetPassword.value).then(result => {
       this.resetPasswordCancel();
       this.isConfirmLoading = false;
