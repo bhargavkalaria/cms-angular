@@ -74,7 +74,6 @@ export class UserService {
       return userData.FName + ' ' + userData.LName;
     } else {
       const userData: User = this.encryptDecryptService.decrypt(sessionStorage.getItem('userDetails'));
-      console.log(userData);
       return userData.FName + ' ' + userData.LName;
     }
   }
