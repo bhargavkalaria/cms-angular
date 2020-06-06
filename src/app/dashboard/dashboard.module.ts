@@ -18,6 +18,7 @@ import { DataReportComponent } from './data-report/data-report.component';
 import { DataGraphComponent } from './data-graph/data-graph.component';
 import { RolesListComponent } from './roles/roles-list/roles-list.component';
 import { UpdateRoleComponent } from './roles/update-role/update-role.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { UpdateRoleComponent } from './roles/update-role/update-role.component';
   imports: [
     CommonModule,
     NgZorroAntdModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [
     {

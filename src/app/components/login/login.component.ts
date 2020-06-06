@@ -4,6 +4,7 @@ import {Constant} from '../../utils/constant';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NzNotificationService} from 'ng-zorro-antd';
 import {UserService} from '../../services/user.service';
+import {NotificationService} from '../../services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   resetPassword: FormGroup;
   emailError = Constant.emailError;
   passwordError = Constant.passwordError;
-  minLengthPassword = Constant.minLengthPassword;
+  firstNameError = Constant.firstName;
+  lastNameError = Constant.lastName;
   loadingButton = false;
   status = 'login';
   resetId;
@@ -25,67 +27,23 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router,
               private userService: UserService,
               private formBuilder: FormBuilder,
-              private notification: NzNotificationService,
+              private notificationService: NotificationService,
               private activatedRoute: ActivatedRoute,
   ) {
     this.userForm = this.formBuilder.group({
-      UId: [null],
-      userName: [null, [Validators.required, Validators.email]],
+      Email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required]],
-      Role: [null],
-      FName: [null],
-      LName: [null],
       RememberMe: [false],
-      viewCampaignAccess: [false],
-      addCampaignAccess: [false],
-      editCampaignAccess: [false],
-      deleteCampainAccess: [false],
-      uploadCustomerAccess: [false],
-      addQuickCampaignAccess: [false],
-      viewQuickCampaignAccess: [false],
-      addTemplateAccess: [false],
-      viewTemplateAccess: [false],
-      editTemplateAccess: [false],
-      deleteTemplateAccess: [false],
-      addBrandAccess: [false],
-      editBrandAccess: [false],
-      viewBrandAccess: [false],
-      deleteBrandAccess: [false],
-      addUserAccess: [false],
-      hasReportAccess: [false],
     });
     this.registerUser = this.formBuilder.group({
-      UId: [null],
-      userName: [null, [Validators.required, Validators.email]],
+      Email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required]],
       Role: [null, [Validators.required]],
       FName: [null, [Validators.required]],
       LName: [null, [Validators.required]],
-      RememberMe: [false],
-      viewCampaignAccess: [false],
-      addCampaignAccess: [false],
-      editCampaignAccess: [false],
-      deleteCampainAccess: [false],
-      uploadCustomerAccess: [false],
-      addQuickCampaignAccess: [false],
-      viewQuickCampaignAccess: [false],
-      addTemplateAccess: [false],
-      viewTemplateAccess: [false],
-      editTemplateAccess: [false],
-      deleteTemplateAccess: [false],
-      addBrandAccess: [false],
-      editBrandAccess: [false],
-      viewBrandAccess: [false],
-      deleteBrandAccess: [false],
-      addUserAccess: [false],
-      hasReportAccess: [false],
     });
     this.forgotPassword = this.formBuilder.group({
       email: [null, [Validators.required, Validators.email]],
-    });
-    this.resetPassword = this.formBuilder.group({
-      newPassword: ['', [Validators.required]],
-      confirmPassword: ['', [this.confirmResetPassword]],
     });
   }
 
@@ -102,38 +60,58 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  confirmResetPassword(control: FormControl): { [s: string]: boolean } {
-    if (!control.value) {
-      return {error: true, required: true};
-    } else if (control.value !== this.resetPassword.controls.newPassword.value) {
-      return {confirm: true, error: true};
-    }
-    return {};
-  }
-
   doLogin(): void {
     if (this.userForm.valid) {
       if (this.userForm.value.password.trim()) {
-        this.router.navigate(['dashboard']);
+        this.userService.login(this.userForm.value).then(result => {
+          localStorage.setItem('user', this.userForm.value.Email);
+          this.router.navigate(['dashboard']);
+        }).catch(error => {
+          this.notificationService.createNotification(
+            this.notificationService.notificationError,
+            Constant.loginError,
+            error.error);
+        });
       } else {
-        this.notification.create(
-          'error',
-          'Password Error',
-          Constant.passwordTrimMessage, {nzPlacement: 'bottomRight'}
-        );
+        this.notificationService.createNotification(
+          this.notificationService.notificationError,
+          Constant.shortPasswordTrimMessage,
+          Constant.passwordTrimMessage);
       }
     }
   }
 
   setForgotPassword() {
-
+    this.userService.forgotPassword(this.forgotPassword.value.email).then(result => {
+      console.log(result);
+      this.router.navigate(['login']);
+      this.notificationService.createNotification(
+        this.notificationService.notificationSuccess,
+        Constant.successForgotShortMessage,
+        Constant.successForgotLongMessage
+      );
+    }).catch(error => {
+      this.notificationService.createNotification(
+        this.notificationService.notificationError,
+        Constant.forgotError,
+        error.error);
+    });
   }
 
-  userResetPassword() {
-
-  }
-
-  validateConfirmPassword(): void {
-    this.resetPassword.controls.confirmPassword.updateValueAndValidity();
+  registerNewUser(): void {
+    this.userService.addNewUser(this.registerUser.value).then(result => {
+      this.router.navigate(['login']);
+      this.notificationService.createNotification(
+        this.notificationService.notificationSuccess,
+        Constant.successRegisterUserShortMessage,
+        Constant.successRegisterUserLongMessage
+      );
+    }).catch(error => {
+      this.notificationService.createNotification(
+        this.notificationService.notificationError,
+        Constant.errorRegisterUserShortMessage,
+        Constant.somethingWentWrong
+      );
+    });
   }
 }

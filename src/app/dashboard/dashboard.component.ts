@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {NzModalService} from 'ng-zorro-antd';
 import {UserService} from '../services/user.service';
+import {Constant} from '../utils/constant';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {NotificationService} from '../services/notification.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,11 +12,27 @@ import {UserService} from '../services/user.service';
 })
 export class DashboardComponent implements OnInit {
   isCollapsed = false;
+  resetPasswordModelVisible = false;
+  resetOldPassword = Constant.resetOldPassword;
+  resetNewPassword = Constant.resetNewPassword;
+  resetPassword: FormGroup;
+  isConfirmLoading = false;
 
-  constructor(private modalService: NzModalService, public userService: UserService) {
+  constructor(private modalService: NzModalService,
+              public userService: UserService,
+              private fb: FormBuilder,
+              private notificationService: NotificationService) {
+    this.resetPassword = this.fb.group({
+      cur_pwd: ['', [Validators.required]],
+      new_pwd: ['', [Validators.required]],
+    });
   }
 
   ngOnInit(): void {
+  }
+
+  resetPasswordCancel(): void {
+    this.resetPasswordModelVisible = false;
   }
 
   showLogoutConfirmation(): void {
@@ -24,6 +43,31 @@ export class DashboardComponent implements OnInit {
       nzCancelText: 'No',
       nzOnCancel: () => console.log('Cancel')
     });
+  }
+
+  resetPasswordOk(): void {
+    this.isConfirmLoading = true;
+    this.resetPassword.value.email = this.userService.getUser();
+    this.userService.resetPassword(this.resetPassword.value).then(result => {
+      this.resetPasswordCancel();
+      this.isConfirmLoading = false;
+      this.notificationService.createNotification(
+        this.notificationService.notificationSuccess,
+        Constant.successResetPasswordShortMessage,
+        Constant.successResetPasswordLongMessage,
+      );
+    }).catch(error => {
+      this.notificationService.createNotification(
+        this.notificationService.notificationError,
+        Constant.errorResetPasswordLongMessage,
+        error.error,
+      );
+    });
+  }
+
+  showResetPasswordModal(): void {
+    this.resetPassword.reset();
+    this.resetPasswordModelVisible = true;
   }
 
   logout() {

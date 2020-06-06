@@ -65,7 +65,7 @@
           <nz-dropdown-menu #menu="nzDropdownMenu">
             <ul nz-menu nzSelectable>
               <li nz-menu-item (click)="showLogoutConfirmation()">Logout</li>
-              <li nz-menu-item>Reset Password</li>
+              <li nz-menu-item (click)="showResetPasswordModal()">Reset Password</li>
               <li nz-menu-item>Add User</li>
             </ul>
           </nz-dropdown-menu>
@@ -79,3 +79,36 @@
     </nz-content>
   </nz-layout>
 </nz-layout>
+<nz-modal
+  [(nzVisible)]="resetPasswordModelVisible"
+  [nzTitle]="resetPasswordTitle"
+  [nzContent]="resetPasswordContent"
+  [nzFooter]="resetPasswordFooter"
+  (nzOnCancel)="resetPasswordCancel()"
+>
+  <ng-template #resetPasswordTitle>
+    Reset Password
+  </ng-template>
+
+  <ng-template #resetPasswordContent>
+    <form nz-form [formGroup]="resetPassword">
+      <nz-form-item>
+        <nz-form-control nzHasFeedback nzErrorTip="{{resetOldPassword}}">
+          <input nz-input type="password" formControlName="cur_pwd" placeholder="Old password"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzHasFeedback nzErrorTip="{{resetNewPassword}}">
+          <input nz-input type="password" formControlName="new_pwd" placeholder="New password"/>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-template>
+
+  <ng-template #resetPasswordFooter>
+    <button nz-button nzType="default" (click)="resetPasswordCancel()">Cancel</button>
+    <button nz-button nzType="primary" (click)="resetPasswordOk()"
+            [disabled]="!resetPassword.valid" [nzLoading]="isConfirmLoading">Reset Password
+    </button>
+  </ng-template>
+</nz-modal>
