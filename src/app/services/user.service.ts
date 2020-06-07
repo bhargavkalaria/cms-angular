@@ -9,6 +9,8 @@ import {EncryptDecryptService} from './encrypt-decrypt.service';
   providedIn: 'root'
 })
 export class UserService {
+  isLoading = false;
+
   constructor(private router: Router, private http: HttpClient, private encryptDecryptService: EncryptDecryptService) {
   }
 

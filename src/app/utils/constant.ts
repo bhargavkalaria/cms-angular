@@ -21,4 +21,5 @@ export class Constant {
   static successResetPasswordLongMessage = 'Password reset successfully';
   static errorResetPasswordLongMessage = 'Error in resetting password';
   static encryptionKey = 'Gateway@123';
+  static dashboardError = 'Error in getting data';
 }

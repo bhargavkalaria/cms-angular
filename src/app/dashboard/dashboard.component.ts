@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userService.isLoading = false;
     this.userName = this.userService.getUserName();
     this.role = this.userService.checkRoles();
   }
@@ -64,7 +65,7 @@ export class DashboardComponent implements OnInit {
       this.notificationService.createNotification(
         this.notificationService.notificationError,
         Constant.errorResetPasswordLongMessage,
-        error.error,
+        error.error.Message,
       );
     });
   }

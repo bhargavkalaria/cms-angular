@@ -1,1 +1,115 @@
-<p>home works!</p>
+<ng-template [ngIf]="!isLoading">
+  <nz-row [nzGutter]="[24, 24]">
+    <nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="12" nzXl="6" nzXXl="6">
+      <nz-card class="home-header-card">
+        <h3>Success Rate</h3>
+        <h5>{{generalData.SuccessRate + ' %'}}</h5>
+        <nz-progress [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"
+                     [nzPercent]="generalData.SuccessRate"></nz-progress>
+        <h5 class="clip-overflow-text">{{generalData.SuccessIncrease}}</h5>
+      </nz-card>
+    </nz-col>
+    <nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="12" nzXl="6" nzXXl="6">
+      <nz-card class="home-header-card">
+        <h3>Total no of campaign</h3>
+        <h5>{{generalData.CampaignCount}}</h5>
+        <nz-progress [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"
+                     [nzPercent]="generalData.CampaignCount"></nz-progress>
+        <h5 class="clip-overflow-text">{{generalData.CampaignIncrease}}</h5>
+      </nz-card>
+    </nz-col>
+    <nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="12" nzXl="6" nzXXl="6">
+      <nz-card class="home-header-card">
+        <h3>Marketing strategy</h3>
+        <nz-carousel nzAutoPlay nzEnableSwipe="false">
+          <div nz-carousel-content *ngFor="let index of marketingStrategy">
+            <h3>{{ index }}</h3>
+          </div>
+        </nz-carousel>
+      </nz-card>
+    </nz-col>
+    <nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="12" nzXl="6" nzXXl="6">
+      <nz-card class="home-header-card">
+        <h3>Active Campaign</h3>
+        <h5>{{generalData.ActiveCampaignCount + ' %'}}</h5>
+        <nz-progress [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }" nzStatus="active"
+                     [nzPercent]="generalData.ActiveCampaignCount"></nz-progress>
+        <h5 class="clip-overflow-text">{{generalData.ActiveCampaignIncrease}}</h5>
+      </nz-card>
+    </nz-col>
+  </nz-row>
+  <div nz-row [nzGutter]="[48, 48]">
+    <nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="12" nzXXl="12">
+      <div class="chart-design">
+        <h1>Campaign Status</h1>
+        <div style="display: block;">
+          <canvas baseChart width="400" height="400"
+                  [datasets]="campaignStatusData"
+                  [labels]="campaignStatusLabel"
+                  [colors]="campaignStatusColor"
+                  [legend]="true"
+                  [chartType]="'line'">
+          </canvas>
+        </div>
+      </div>
+    </nz-col>
+    <nz-col nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="12" nzXXl="12">
+      <div class="chart-design">
+        <h1>Last 30 days campaign</h1>
+        <div style="display: block;">
+          <canvas baseChart width="400" height="400"
+                  [datasets]="campaignData"
+                  [labels]="campaignLabel"
+                  [legend]="true"
+                  [chartType]="'bar'">
+          </canvas>
+        </div>
+      </div>
+    </nz-col>
+    <nz-col nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="12" nzXXl="12">
+      <div class="chart-design">
+        <h1>Top three campaign</h1>
+        <div style="display: block;">
+          <canvas baseChart width="400" height="400"
+                  [datasets]="topThreeCampaignData"
+                  [labels]="topThreeCampaignLabel"
+                  [legend]="true"
+                  [chartType]="'bar'">
+          </canvas>
+        </div>
+      </div>
+    </nz-col>
+    <nz-col nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="12" nzXXl="12">
+      <div class="chart-design">
+        <h1>Top budget campaign</h1>
+        <div style="display: block;">
+          <canvas baseChart width="400" height="400"
+                  [datasets]="topBudgetCampaignData"
+                  [labels]="topBudgetCampaignLabel"
+                  [legend]="true"
+                  [chartType]="'horizontalBar'">
+          </canvas>
+        </div>
+      </div>
+    </nz-col>
+    <nz-col nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="12" nzXXl="12">
+      <div class="chart-design">
+        <h1>Brands</h1>
+        <div style="display: block;">
+          <canvas baseChart width="400" height="400"
+                  [data]="topBudgetData"
+                  [labels]="topBudgetLabel"
+                  [legend]="true"
+                  [colors]="topBudgetColors"
+                  [chartType]="'pie'">
+          </canvas>
+        </div>
+      </div>
+    </nz-col>
+  </div>
+</ng-template>
+<ng-template [ngIf]="isLoading">
+  <div class="dashboard-loader">
+    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+  </div>
+</ng-template>
