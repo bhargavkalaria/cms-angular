@@ -17,7 +17,7 @@ import {EncryptDecryptService} from './services/encrypt-decrypt.service';
 
 registerLocaleData(en);
 const ngZorroConfig: NzConfig = {
-  notification: {nzMaxStack: 1, nzPlacement: 'bottomRight'}
+  notification: {nzMaxStack: 1, nzPlacement: 'bottomRight'},
 };
 
 @NgModule({
@@ -39,6 +39,7 @@ const ngZorroConfig: NzConfig = {
     {
       provide: NZ_CONFIG, useValue: ngZorroConfig
     },
+    {provide: NZ_I18N, useValue: en_US},
     UserService,
     NotificationService,
     EncryptDecryptService

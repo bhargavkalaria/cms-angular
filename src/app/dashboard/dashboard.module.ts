@@ -18,9 +18,10 @@ import {DataReportComponent} from './data-report/data-report.component';
 import {DataGraphComponent} from './data-graph/data-graph.component';
 import {RolesListComponent} from './roles/roles-list/roles-list.component';
 import {UpdateRoleComponent} from './roles/update-role/update-role.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DashboardService} from '../services/dashboard.service';
 import {ChartsModule} from 'ng2-charts';
+import {CampaignService} from '../services/campaign.service';
 
 @NgModule({
   declarations: [
@@ -46,13 +47,12 @@ import {ChartsModule} from 'ng2-charts';
     CommonModule,
     NgZorroAntdModule,
     DashboardRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     DashboardService,
-    {
-      provide: NZ_I18N, useValue: en_US
-    }
+    CampaignService,
   ],
 })
 export class DashboardModule {

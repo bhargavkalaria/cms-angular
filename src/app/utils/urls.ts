@@ -11,4 +11,9 @@ export class Urls {
   static getTopFiveBrandByBudget = Urls.baseUrl + 'DashBoardApi/GetTopFiveBrandByBudget';
   static getCampaignStatusList = Urls.baseUrl + 'DashBoardApi/GetCampaignStatusList';
   static getTopThreeResponse = Urls.baseUrl + 'DashBoardApi/GetTopThreeResponse';
+  static getAllCampaign = Urls.baseUrl + 'CampaignApi/GetAllCampaigns';
+  static getCampaignById = Urls.baseUrl + 'CampaignApi/GetCampaign?id=';
+  static addCampaign = Urls.baseUrl + 'CampaignApi/InsertCampaign';
+  static updateCampaign = Urls.baseUrl + 'CampaignApi/UpdateCampaign';
+  static deleteCampaign = Urls.baseUrl + 'CampaignApi/DeleteCampaign?id=';
 }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {Urls} from '../utils/urls';
-import {User} from '../models/user';
+import {UserModel} from '../models/userModel';
 import {EncryptDecryptService} from './encrypt-decrypt.service';
 
 @Injectable({
@@ -25,7 +25,7 @@ export class UserService {
     this.router.navigate(['login']);
   }
 
-  login(user: User) {
+  login(user: UserModel) {
     return new Promise((resolve, reject) => {
       return this.http.post(Urls.login, user)
         .subscribe((res: any) => {
@@ -72,30 +72,30 @@ export class UserService {
 
   getUserName() {
     if (this.getIsRemember()) {
-      const userData: User = this.encryptDecryptService.decrypt(localStorage.getItem('userDetails'));
+      const userData: UserModel = this.encryptDecryptService.decrypt(localStorage.getItem('userDetails'));
       return userData.FName + ' ' + userData.LName;
     } else {
-      const userData: User = this.encryptDecryptService.decrypt(sessionStorage.getItem('userDetails'));
+      const userData: UserModel = this.encryptDecryptService.decrypt(sessionStorage.getItem('userDetails'));
       return userData.FName + ' ' + userData.LName;
     }
   }
 
   checkRoles() {
     if (this.getIsRemember()) {
-      const userData: User = this.encryptDecryptService.decrypt(localStorage.getItem('userDetails'));
+      const userData: UserModel = this.encryptDecryptService.decrypt(localStorage.getItem('userDetails'));
       return userData.Role;
     } else {
-      const userData: User = this.encryptDecryptService.decrypt(sessionStorage.getItem('userDetails'));
+      const userData: UserModel = this.encryptDecryptService.decrypt(sessionStorage.getItem('userDetails'));
       return userData.Role;
     }
   }
 
   getUserEmail() {
     if (this.getIsRemember()) {
-      const userData: User = this.encryptDecryptService.decrypt(localStorage.getItem('userDetails'));
+      const userData: UserModel = this.encryptDecryptService.decrypt(localStorage.getItem('userDetails'));
       return userData.Email;
     } else {
-      const userData: User = this.encryptDecryptService.decrypt(sessionStorage.getItem('userDetails'));
+      const userData: UserModel = this.encryptDecryptService.decrypt(sessionStorage.getItem('userDetails'));
       return userData.Email;
     }
   }

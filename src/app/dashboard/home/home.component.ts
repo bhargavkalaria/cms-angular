@@ -186,6 +186,5 @@ export class HomeComponent implements OnInit {
       this.topBudgetData.push(d.BrandCampaignCount);
       this.topBudgetLabel.push(d.BrandName);
     });
-    console.log(this.topBudgetData, this.topBudgetLabel);
   }
 }

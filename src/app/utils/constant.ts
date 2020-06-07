@@ -11,8 +11,8 @@ export class Constant {
   static forgotError = 'Error in forgot password!';
   static successForgotShortMessage = 'Forgot password';
   static successForgotLongMessage = 'Please check your email';
-  static successRegisterUserShortMessage = 'User registered';
-  static successRegisterUserLongMessage = 'User registered successfully';
+  static successRegisterUserShortMessage = 'UserModel registered';
+  static successRegisterUserLongMessage = 'UserModel registered successfully';
   static errorRegisterUserShortMessage = 'Registration failed';
   static errorRegisterUserLongMessage = 'Please try again later';
   static resetOldPassword = 'Please input your old password!';
