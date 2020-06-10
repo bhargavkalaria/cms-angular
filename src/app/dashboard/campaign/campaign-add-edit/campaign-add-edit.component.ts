@@ -45,7 +45,8 @@ export class CampaignAddEditComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private campaignService: CampaignService,
               private notificationService: NotificationService,
-              private router: Router, private activatedRoute: ActivatedRoute) {
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
     this.campaign = this.formBuilder.group({
       CampaignId: [],
       CampaignName: [null, [Validators.required]],

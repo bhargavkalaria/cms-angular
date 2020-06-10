@@ -142,5 +142,15 @@ export class CampaignService {
     });
   }
 
+  detailCampaign(campaignId) {
+    return new Promise((resolve, reject) => {
+      return this.http.get(Urls.getCampaignDetail + campaignId)
+        .subscribe((res: any) => {
+          resolve(res);
+        }, err => {
+          reject(err);
+        });
+    });
+  }
 
 }
