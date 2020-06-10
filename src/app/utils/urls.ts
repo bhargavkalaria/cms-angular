@@ -16,4 +16,11 @@ export class Urls {
   static addCampaign = Urls.baseUrl + 'CampaignApi/InsertCampaign';
   static updateCampaign = Urls.baseUrl + 'CampaignApi/UpdateCampaign';
   static deleteCampaign = Urls.baseUrl + 'CampaignApi/DeleteCampaign?id=';
+  static getBrands = Urls.baseUrl + 'BrandApi/GetAllBrands';
+  static getMarketingType = Urls.baseUrl + 'CampaignApi/GetAllMTypes';
+  static getStrategy = Urls.baseUrl + 'CampaignApi/GetAllStrategies';
+  static getAllTemplate = Urls.baseUrl + 'TemplateApi/GetAllTemplates';
+  static getCampaignStatus = Urls.baseUrl + 'CampaignApi/GetAllCampaignStatuses';
+  static getAllCustomers = Urls.baseUrl + 'CustomerApi/GetAllCustomers';
+  static getCustomerByCampaign = Urls.baseUrl + 'CustomerApi/GetCustomersByCampaignId?campaignId=';
 }

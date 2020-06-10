@@ -9,7 +9,17 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {registerLocaleData} from '@angular/common';
 import en from '@angular/common/locales/en';
 import {LoginComponent} from './components/login/login.component';
-import {en_US, NgZorroAntdModule, NZ_I18N, NzConfig, NZ_CONFIG} from 'ng-zorro-antd';
+import {
+  en_US,
+  NgZorroAntdModule,
+  NZ_I18N,
+  NzConfig,
+  NZ_CONFIG,
+  NzGridModule,
+  NzInputModule,
+  NzFormModule,
+  NzSelectModule, NzSpinModule, NzButtonModule, NzNotificationModule
+} from 'ng-zorro-antd';
 import {UserService} from './services/user.service';
 import {ResponsesComponent} from './components/responses/responses.component';
 import {NotificationService} from './services/notification.service';

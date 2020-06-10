@@ -22,6 +22,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DashboardService} from '../services/dashboard.service';
 import {ChartsModule} from 'ng2-charts';
 import {CampaignService} from '../services/campaign.service';
+import {CKEditorModule} from 'ckeditor4-angular';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import {CampaignService} from '../services/campaign.service';
     NgZorroAntdModule,
     DashboardRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    CKEditorModule
   ],
   providers: [
     DashboardService,

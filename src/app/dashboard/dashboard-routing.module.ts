@@ -44,15 +44,15 @@ const dashboardRoutes: Routes = [
         component: BrandAddEditComponent
       },
       {
-        path: 'campaign-list',
+        path: 'campaign',
         component: CampaignListComponent
       },
       {
-        path: 'campaign-add-edit',
+        path: 'campaign/create',
         component: CampaignAddEditComponent
       },
       {
-        path: 'campaign-add-edit/edit/:id',
+        path: 'campaign/edit/:id',
         component: CampaignAddEditComponent
       },
       {

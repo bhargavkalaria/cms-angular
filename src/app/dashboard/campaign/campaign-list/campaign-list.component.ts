@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CampaignService} from '../../../services/campaign.service';
 import {NotificationService} from '../../../services/notification.service';
 import {Constant} from '../../../utils/constant';
+import {CampaignModel} from '../../../models/campaignModel';
 
 @Component({
   selector: 'app-campaign-list',
@@ -9,10 +10,10 @@ import {Constant} from '../../../utils/constant';
   styleUrls: ['./campaign-list.component.scss']
 })
 export class CampaignListComponent implements OnInit {
-  campaignList;
+  campaignList: CampaignModel[];
   searchValue = '';
   visible = false;
-  listOfDisplayData;
+  listOfDisplayData: CampaignModel[];
   isLoading = true;
 
   constructor(private campaignService: CampaignService, private notificationService: NotificationService) {
@@ -23,7 +24,7 @@ export class CampaignListComponent implements OnInit {
   }
 
   getCampaign() {
-    this.campaignService.getAllCampaign().then(result => {
+    this.campaignService.getAllCampaign().then((result: any) => {
       this.isLoading = false;
       this.campaignList = result;
       this.listOfDisplayData = [...this.campaignList];
@@ -45,5 +46,25 @@ export class CampaignListComponent implements OnInit {
   search(): void {
     this.visible = false;
     this.listOfDisplayData = this.campaignList.filter((item) => item.CampaignName.toLowerCase().indexOf(this.searchValue) !== -1);
+  }
+
+  deleteCampaign(campaign) {
+    this.isLoading = true;
+    this.campaignService.deleteCampaign(campaign.CampaignId).then(result => {
+      this.isLoading = true;
+      this.getCampaign();
+      this.notificationService.createNotification(
+        this.notificationService.notificationSuccess,
+        Constant.successCampaignDeleteShortMessage,
+        campaign.CampaignName + Constant.successCampaignDeleteLongMessage
+      );
+    }).catch(error => {
+      this.isLoading = false;
+      this.notificationService.createNotification(
+        this.notificationService.notificationError,
+        Constant.campaignDeleteError,
+        Constant.somethingWentWrong
+      );
+    });
   }
 }
