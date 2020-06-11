@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import {RoleService} from '../../../services/role.service';
+import {User} from '../../../models/user';
 @Component({
   selector: 'app-roles-list',
   templateUrl: './roles-list.component.html',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RolesListComponent implements OnInit {
 
-  constructor() { }
+  userList:User[];
+  constructor(private roleService:RoleService) { }
 
   ngOnInit(): void {
+    this.roleService.getUsers().then(res=>this.userList = res as User[]);
+   
   }
 
 }
