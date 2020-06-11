@@ -10,17 +10,9 @@ export class UploadService {
   constructor(private http: HttpClient) {
   }
 
-  UploadExcel(formData: FormData) {
-    console.log(formData);
-    const customHeader = new HttpHeaders();
-
-    customHeader.append('Content-Type', 'multipart/form-data');
-    customHeader.append('Accept', 'application/json');
-
-    const httpOptions = {headers: customHeader};
-
+  uploadExcel(customerData) {
     return new Promise((resolve, reject) => {
-      return this.http.post(Urls.uploadCustomer, formData, httpOptions).subscribe((res: any) => {
+      return this.http.post(Urls.uploadCustomer, customerData).subscribe((res: any) => {
         resolve(res);
       }, err => {
         reject(err);

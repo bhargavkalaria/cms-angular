@@ -24,5 +24,5 @@ export class Urls {
   static getAllCustomers = Urls.baseUrl + 'CustomerApi/GetAllCustomers';
   static getCustomerByCampaign = Urls.baseUrl + 'CustomerApi/GetCustomersByCampaignId?campaignId=';
   static getCampaignDetail = Urls.baseUrl + 'ResponseApi/GetResponseByCampaignId?id=';
-  static uploadCustomer = Urls.baseUrl + 'CustomerApi/ExcelUpload';
+  static uploadCustomer = Urls.baseUrl + 'CustomerApi/AddCustomers';
 }

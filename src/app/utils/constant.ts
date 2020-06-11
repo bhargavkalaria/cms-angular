@@ -37,4 +37,22 @@ export class Constant {
   static campaignDeleteError = 'Error in deleting campaign';
   static successCampaignDeleteShortMessage = 'Successfully deleted';
   static successCampaignDeleteLongMessage = ' campaign deleted successfully';
+  static fileFormatError = 'File format error';
+  static fileFormatErrorDescription = 'Please upload .xlsx file only';
+  static uploadFailText = 'Upload Fail';
+  static uploadCustomerFormatError = 'Customer name can\'t be number at line ';
+  static uploadCustomerEmptyError = 'Customer name can\'t be empty at line ';
+  static uploadEmailFormatError = 'Please enter proper email at line ';
+  static uploadEmailEmptyError = 'Email can\'t be empty at line ';
+  static uploadCityEmptyError = 'City can\'t be empty at line ';
+  static uploadMobileFormatError = 'Please enter proper mobile number at line ';
+  static uploadMobileEmptyError = 'Mobile number can\'t be empty at line ';
+  static uploadAgeFormatError = 'Please enter proper age at line ';
+  static uploadAgeEmptyError = 'Age can\'t be empty at line ';
+  static uploadStateEmptyError = 'State can\'t be empty at line ';
+  static uploadCountryEmptyError = 'Country can\'t be empty at line ';
+  static uploadAddressEmptyError = 'Address can\'t be empty at line ';
+  static uploadSuccess = 'Uploaded successfully';
+  static uploadSuccessDetails = 'Customer is uploaded successfully';
+  static uploadErrorFail = 'Something went wrong, please try again later';
 }
