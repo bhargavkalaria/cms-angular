@@ -1,121 +1,128 @@
-<div nz-row nzType="flex" nzJustify="center" nzAlign="middle" class="login-main">
-  <div nz-col nzXs="24" nzSm="24" nzMd="10" nzLg="10" nzXl="8" nzXXl="8" class="login-left">
-    <img src="../../../assets/images/Gateway.jpg" alt="logo">
-  </div>
-  <div nz-col nzXs="24" nzSm="24" nzMd="10" nzLg="10" nzXl="8" nzXXl="8" class="login-right">
-    <div class="login-right--header">
-      <h2
-        class="header">{{
-        status === 'login' ? 'Welcome back' : '' ||
-        status === 'register-user' ? 'Register now' : '' ||
-        status === 'forgot-password' ? "Forgot password, don't Worry" : ''}}</h2>
-      <div class="blueDivider"></div>
+<ng-template [ngIf]="!userService.isLoading">
+  <div nz-row nzType="flex" nzJustify="center" nzAlign="middle" class="login-main">
+    <div nz-col nzXs="24" nzSm="24" nzMd="10" nzLg="10" nzXl="8" nzXXl="8" class="login-left">
+      <img src="../../../assets/images/Gateway.jpg" alt="logo">
     </div>
-    <ng-template [ngIf]="status === 'login'">
-      <form nz-form [formGroup]="userForm" class="login-form"
-            (ngSubmit)="doLogin()">
-        <nz-form-item>
-          <nz-form-control nzErrorTip="{{emailError}}">
-            <nz-input-group nzPrefixIcon="user">
-              <input type="email" nz-input formControlName="Email" placeholder="Username"/>
-            </nz-input-group>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-control nzErrorTip="{{passwordError}}">
-            <nz-input-group nzPrefixIcon="lock">
-              <input type="password" nz-input formControlName="password" placeholder="Password"/>
-            </nz-input-group>
-          </nz-form-control>
-        </nz-form-item>
-        <div nz-row class="login-form-margin">
-          <div nz-col [nzSpan]="12">
-            <label nz-checkbox formControlName="RememberMe">
-              <span>Remember me</span>
-            </label>
+    <div nz-col nzXs="24" nzSm="24" nzMd="10" nzLg="10" nzXl="8" nzXXl="8" class="login-right">
+      <div class="login-right--header">
+        <h2
+          class="header">{{
+          status === 'login' ? 'Welcome back' : '' ||
+          status === 'register-user' ? 'Register now' : '' ||
+          status === 'forgot-password' ? "Forgot password, don't Worry" : ''}}</h2>
+        <div class="blueDivider"></div>
+      </div>
+      <ng-template [ngIf]="status === 'login'">
+        <form nz-form [formGroup]="userForm" class="login-form"
+              (ngSubmit)="doLogin()">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="{{emailError}}">
+              <nz-input-group nzPrefixIcon="user">
+                <input type="email" nz-input formControlName="Email" placeholder="Username"/>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="{{passwordError}}">
+              <nz-input-group nzPrefixIcon="lock">
+                <input type="password" nz-input formControlName="password" placeholder="Password"/>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <div nz-row class="login-form-margin">
+            <div nz-col [nzSpan]="12">
+              <label nz-checkbox formControlName="RememberMe">
+                <span>Remember me</span>
+              </label>
+            </div>
+            <div nz-col [nzSpan]="12">
+              <a class="login-form-forgot" routerLink="/forgot-password">Forgot password</a>
+            </div>
           </div>
-          <div nz-col [nzSpan]="12">
-            <a class="login-form-forgot" routerLink="/forgot-password">Forgot password</a>
-          </div>
-        </div>
-        <button nz-button class="login-form-button login-form-margin" [disabled]="userForm.invalid"
-                [nzType]="'primary'">Log in
-        </button>
-      </form>
-    </ng-template>
-    <ng-template [ngIf]="status === 'forgot-password'">
-      <form nz-form [formGroup]="forgotPassword" class="login-form"
-            (ngSubmit)="setForgotPassword()">
-        <nz-form-item>
-          <nz-form-control nzErrorTip="{{emailError}}">
-            <nz-input-group nzPrefixIcon="user">
-              <input type="email" nz-input formControlName="email" placeholder="email"/>
-            </nz-input-group>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-control>
-            <button nz-button class="login-form-button" [nzLoading]="loadingButton" [disabled]="forgotPassword.invalid"
-                    [nzType]="'primary'">Send mail
-            </button>
-            <a routerLink="/login">Back to login!</a>
-          </nz-form-control>
-        </nz-form-item>
-      </form>
-    </ng-template>
-    <ng-template [ngIf]="status==='register-user'">
-      <form nz-form [formGroup]="registerUser" class="login-form" (ngSubmit)="registerNewUser()">
-        <nz-form-item>
-          <nz-form-control nzErrorTip="{{emailError}}">
-            <nz-input-group nzPrefixIcon="user">
-              <input type="email" nz-input formControlName="Email" placeholder="Username"/>
-            </nz-input-group>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-control nzErrorTip="{{passwordError}}">
-            <nz-input-group nzPrefixIcon="lock">
-              <input type="password" nz-input formControlName="password" placeholder="Password"/>
-            </nz-input-group>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-control nzErrorTip="Please select role!">
-            <nz-select
-              id="gender"
-              formControlName="Role"
-              nzPlaceHolder="Select Role">
-              <nz-option nzValue="ADMIN" nzLabel="Admin"></nz-option>
-              <nz-option nzValue="MANAGEMENT" nzLabel="Management"></nz-option>
-              <nz-option nzValue="MARKETING" nzLabel="Marketing"></nz-option>
-              <nz-option nzValue="DATA-ENTRY-USER" nzLabel="Data-entry user"></nz-option>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-control nzErrorTip="{{firstNameError}}">
-            <nz-input-group nzPrefixIcon="user">
-              <input type="text" nz-input formControlName="FName" placeholder="First name"/>
-            </nz-input-group>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-control nzErrorTip="{{lastNameError}}">
-            <nz-input-group nzPrefixIcon="user">
-              <input type="text" nz-input formControlName="LName" placeholder="Last name"/>
-            </nz-input-group>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-control>
-            <button nz-button class="login-form-button" [nzLoading]="loadingButton" [disabled]="registerUser.invalid"
-                    [nzType]="'primary'">Register User
-            </button>
-            <a routerLink="/login">Back to login!</a>
-          </nz-form-control>
-        </nz-form-item>
-      </form>
-    </ng-template>
+          <button nz-button class="login-form-button login-form-margin" [disabled]="userForm.invalid"
+                  [nzType]="'primary'">Log in
+          </button>
+        </form>
+      </ng-template>
+      <ng-template [ngIf]="status === 'forgot-password'">
+        <form nz-form [formGroup]="forgotPassword" class="login-form"
+              (ngSubmit)="setForgotPassword()">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="{{emailError}}">
+              <nz-input-group nzPrefixIcon="user">
+                <input type="email" nz-input formControlName="email" placeholder="email"/>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <button nz-button class="login-form-button" [nzLoading]="loadingButton"
+                      [disabled]="forgotPassword.invalid"
+                      [nzType]="'primary'">Send mail
+              </button>
+              <a routerLink="/login">Back to login!</a>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+      </ng-template>
+      <ng-template [ngIf]="status==='register-user'">
+        <form nz-form [formGroup]="registerUser" class="login-form" (ngSubmit)="registerNewUser()">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="{{emailError}}">
+              <nz-input-group nzPrefixIcon="user">
+                <input type="email" nz-input formControlName="Email" placeholder="Username"/>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="{{passwordError}}">
+              <nz-input-group nzPrefixIcon="lock">
+                <input type="password" nz-input formControlName="password" placeholder="Password"/>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please select role!">
+              <nz-select
+                id="gender"
+                formControlName="Role"
+                nzPlaceHolder="Select Role">
+                <nz-option nzValue="ADMIN" nzLabel="Admin"></nz-option>
+                <nz-option nzValue="MANAGEMENT" nzLabel="Management"></nz-option>
+                <nz-option nzValue="MARKETING" nzLabel="Marketing"></nz-option>
+                <nz-option nzValue="DATA-ENTRY-USER" nzLabel="Data-entry user"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="{{firstNameError}}">
+              <nz-input-group nzPrefixIcon="user">
+                <input type="text" nz-input formControlName="FName" placeholder="First name"/>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="{{lastNameError}}">
+              <nz-input-group nzPrefixIcon="user">
+                <input type="text" nz-input formControlName="LName" placeholder="Last name"/>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <button nz-button class="login-form-button" [nzLoading]="loadingButton" [disabled]="registerUser.invalid"
+                      [nzType]="'primary'">Register UserModel
+              </button>
+              <a routerLink="/login">Back to login!</a>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+      </ng-template>
+    </div>
   </div>
-</div>
-
+</ng-template>
+<ng-template [ngIf]="userService.isLoading">
+  <div class="loader">
+    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+  </div>
+</ng-template>

@@ -1,13 +1,1 @@
 <p>brand-add-edit works!</p>
-
-<form nz-form [formGroup]="brandForm" (ngSubmit)="add()">
-    <nz-form-item>
-        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your email!">
-            <nz-input-group>
-                <input type="text" nz-input formControlName="brandName" placeholder="brandName" />
-            </nz-input-group>
-        </nz-form-control>
-    </nz-form-item>
-    <button nz-button  [disabled]="brandForm.invalid" [nzType]="'primary'">Save
-    </button>
-</form>

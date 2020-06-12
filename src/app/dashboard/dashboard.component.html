@@ -18,7 +18,7 @@
       </li>
       <li nz-submenu nzTitle="Campaign" nzIcon="notification">
         <ul>
-          <li nz-menu-item routerLink="campaign-list" routerLinkActive="ant-menu-item-selected">Campaign</li>
+          <li nz-menu-item routerLink="campaign" routerLinkActive="ant-menu-item-selected">Campaign</li>
           <li nz-menu-item routerLink="quick-campaign-list" routerLinkActive="ant-menu-item-selected">Quick Campaign
           </li>
         </ul>
@@ -67,7 +67,7 @@
             <ul nz-menu nzSelectable>
               <li nz-menu-item (click)="showLogoutConfirmation()">Logout</li>
               <li nz-menu-item (click)="showResetPasswordModal()">Reset Password</li>
-              
+              <li nz-menu-item *ngIf="role.toLowerCase() === 'admin' || 'superadmin'" routerLink="/register-user">Add User</li>
             </ul>
           </nz-dropdown-menu>
         </div>
