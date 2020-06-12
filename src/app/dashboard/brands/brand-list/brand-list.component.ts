@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Brand } from '../../../models/Brand.model'
-import { ActivatedRoute, Router } from '@angular/router';
-import { brandService } from '../../../services/brand.service'
-import { NotificationService } from '../../../services/notification.service'
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {NotificationService} from '../../../services/notification.service';
 import {Constant} from '../../../utils/constant';
+import {BrandModel} from '../../../models/brandModel';
+import {BrandService} from '../../../services/brand.service';
 
 @Component({
   selector: 'app-brand-list',
@@ -11,36 +11,41 @@ import {Constant} from '../../../utils/constant';
   styleUrls: ['./brand-list.component.scss']
 })
 export class BrandListComponent implements OnInit {
+  isLoading = true;
+  public brandList: BrandModel[];
 
-  public brandList: Brand[];
   constructor(private router: Router,
-    private _brandService: brandService, private _notification: NotificationService) { }
+              private brandService: BrandService, private notification: NotificationService) {
+  }
 
 
   ngOnInit(): void {
-    this._brandService.getBrands().then((result: any) => {
-      this.brandList = result
+    this.brandService.getBrands().then((result: any) => {
+      this.brandList = result;
+      this.isLoading = false;
     }).catch(error => {
-      this._notification.createNotification(this._notification.notificationError,
-      Constant.ErrorShortMessage,Constant.somethingWentWrong)
-    })
+      this.notification.createNotification(this.notification.notificationError,
+        Constant.ErrorShortMessage, Constant.somethingWentWrong);
+    });
   }
+
   Add(): void {
     this.router.navigate(['dashboard/brand']);
   }
-  Edit(item: Brand): void {
+
+  Edit(item: BrandModel): void {
     this.router.navigate(['dashboard/brand-list/edit/', item.BrandId]);
   }
 
-  delete(item: Brand): void {
-    this._brandService.Delete(item.BrandId).then((res:any) => {
-      this._notification.createNotification(
-      this._notification.notificationSuccess,
-      Constant.brandDeleteSuccessShortMessage,res)
-      this.ngOnInit()
+  delete(item: BrandModel): void {
+    this.brandService.Delete(item.BrandId).then((res: any) => {
+      this.notification.createNotification(
+        this.notification.notificationSuccess,
+        Constant.brandDeleteSuccessShortMessage, res);
+      this.ngOnInit();
     }).catch((error: any) => {
-      console.log(error)
-    })
+      console.log(error);
+    });
   }
 
 

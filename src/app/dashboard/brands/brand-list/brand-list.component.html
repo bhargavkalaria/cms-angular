@@ -1,21 +1,36 @@
-<button nz-button  [nzType]="'primary'" (click)="Add()">Add
-</button>
-<nz-table #sortTable [nzData]="brandList" nzTableLayout="fixed">
+<ng-template [ngIf]="!isLoading">
+  <div class="add-brand-button">
+    <button nz-button nzType='primary' (click)="Add()">Add Brands</button>
+  </div>
+  <nz-table #sortTable [nzData]="brandList" nzTableLayout="fixed">
     <thead>
-      <tr>
-        <th>Id</th>
-        <th >Brand</th>
-        <th >Action</th>
-      </tr>
+    <tr>
+      <th>Id</th>
+      <th>Brand</th>
+      <th>Action</th>
+    </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of brandList; index as i">
-        <td>{{ i+1 }}</td>
-        <td>{{ data.BrandName }}</td>
-        <td> <button nz-button  [nzType]="'primary'" (click)="Edit(data)">Edit
-        </button>
-         <button nz-button  [nzType]="'danger'" (click)="delete(data)">Delete
-        </button></td>
-      </tr>
+    <tr *ngFor="let data of brandList; index as i">
+      <td>{{ i + 1 }}</td>
+      <td>{{ data.BrandName }}</td>
+      <td>
+        <i nz-icon nzType="edit" nzTheme="outline"
+           class="cursor-pointer" nzTooltipTitle="Edit" nzTooltipPlacement="top"
+           nz-button nz-tooltip (click)="Edit(data)"></i>
+        {{'   '}}
+        <i nz-icon nzType="delete" nzTheme="outline" class="cursor-pointer" nzTooltipTitle="Delete"
+           nzTooltipPlacement="top" nz-button nz-tooltip nz-popconfirm
+           nzPopconfirmTitle="Are you sure delete campaign {{data.BrandName}}"
+           (nzOnConfirm)="delete(data)"
+           nzPopconfirmPlacement="rightTop"></i>
+      </td>
+    </tr>
     </tbody>
   </nz-table>
+</ng-template>
+<ng-template [ngIf]="isLoading">
+  <div class="dashboard-loader">
+    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+  </div>
+</ng-template>

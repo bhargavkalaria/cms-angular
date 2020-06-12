@@ -15,16 +15,11 @@ import {
   NZ_I18N,
   NzConfig,
   NZ_CONFIG,
-  NzGridModule,
-  NzInputModule,
-  NzFormModule,
-  NzSelectModule, NzSpinModule, NzButtonModule, NzNotificationModule
 } from 'ng-zorro-antd';
 import {UserService} from './services/user.service';
 import {ResponsesComponent} from './components/responses/responses.component';
 import {NotificationService} from './services/notification.service';
 import {EncryptDecryptService} from './services/encrypt-decrypt.service';
-import { brandService } from './services/brand.service';
 
 registerLocaleData(en);
 const ngZorroConfig: NzConfig = {
@@ -50,7 +45,7 @@ const ngZorroConfig: NzConfig = {
     {
       provide: NZ_I18N, useValue: en_US
     },
-    {provide: NZ_I18N, useValue: en_US},
+    {provide: NZ_CONFIG, useValue: ngZorroConfig},
     UserService,
     NotificationService,
     EncryptDecryptService

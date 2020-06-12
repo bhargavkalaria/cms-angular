@@ -1,13 +1,37 @@
-<p>brand-add-edit works!</p>
-
-<form nz-form [formGroup]="brandForm" (ngSubmit)="add()">
-    <nz-form-item>
-        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your email!">
+<ng-template [ngIf]="!isLoading">
+  <div nz-row [nzGutter]="[0,24]">
+    <div nz-col nzSpan="24">
+      <nz-breadcrumb>
+        <nz-breadcrumb-item routerLink="../">
+          <i nz-icon nzType="home"></i>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item routerLink="{{id?'../../..':'..'}}/brand-list">
+          <a><i nz-icon nzType="notification"></i><span>Brands</span></a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          Add brands
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="[0,24]">
+    <div nz-col nzSpan="24">
+      <form nz-form [formGroup]="brandForm" (ngSubmit)="add()">
+        <nz-form-item>
+          <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please enter brand!">
             <nz-input-group>
-                <input type="text" nz-input formControlName="BrandName" placeholder="BrandName" />
+              <input type="text" nz-input formControlName="BrandName" placeholder="BrandName"/>
             </nz-input-group>
-        </nz-form-control>
-    </nz-form-item>
-    <button nz-button  [disabled]="brandForm.invalid" [nzType]="'primary'">Save
-    </button>
-</form>
+          </nz-form-control>
+        </nz-form-item>
+        <button nz-button [disabled]="brandForm.invalid" [nzType]="'primary'">Save
+        </button>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<ng-template [ngIf]="isLoading">
+  <div class="dashboard-loader">
+    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+  </div>
+</ng-template>
