@@ -24,7 +24,6 @@ export class Urls {
   static getAllCustomers = Urls.baseUrl + 'CustomerApi/GetAllCustomers';
   static getCustomerByCampaign = Urls.baseUrl + 'CustomerApi/GetCustomersByCampaignId?campaignId=';
   static getCampaignDetail = Urls.baseUrl + 'ResponseApi/GetResponseByCampaignId?id=';
-  static getBrands = Urls.baseUrl + 'BrandApi/GetAllBrands';
   static getBrandById = Urls.baseUrl + 'BrandApi/GetBrand?id=';
   static addBrand = Urls.baseUrl + 'BrandApi/InsertBrand';
   static updateBrand = Urls.baseUrl + 'BrandApi/UpdateBrand';
