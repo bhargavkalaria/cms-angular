@@ -1,1 +1,151 @@
-<p>update-role works!</p>
+
+<form nz-form [formGroup]="userForm" (ngSubmit)="updateAccess()">
+    <div class="col-8">
+        <input type="hidden" formControlName="UId" />
+        Name : {{fullName}}
+    </div>
+    <div class="col-4">
+        Role : {{role}}
+    </div>
+    <nz-table [nzData]="userForm">
+        <thead>
+            <tr>
+                <th style="width: 10px">No.</th>
+                <th>User</th>
+                <th>Add</th>
+                <th>Edit</th>
+                <th>View</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1.</td>
+                <td>Access To Campaign</td>
+                <td>
+                    <input type="checkbox" nz-input formControlName="addCampaignAccess">
+                </td>
+                <td>
+                    <input type="checkbox" nz-input formControlName="editCampaignAccess">
+                </td>
+                <td>
+                    <input type="checkbox" nz-input formControlName="viewCampaignAccess">
+                </td>
+                <td>
+                    <input type="checkbox" nz-input formControlName="deleteCampainAccess">
+                </td>
+
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td>Access To Quick Campaigns</td>
+                <td>
+                    <input type="checkbox" nz-input formControlName="addQuickCampaignAccess">
+                </td>
+                <td>
+                    <input type="checkbox" nz-input disabled>
+                </td>
+                <td>
+                    <input type="checkbox" nz-input formControlName="viewQuickCampaignAccess">
+                </td>
+                <td>
+
+                    <input type="checkbox" nz-input disabled>
+                </td>
+
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td>Access To Upload Customer</td>
+                <td>
+                    <input type="checkbox" nz-input formControlName="uploadCustomerAccess">
+                </td>
+                <td>
+                    <input type="checkbox" nz-input disabled>
+                </td>
+                <td>
+                    <input type="checkbox" nz-input disabled>
+                </td>
+                <td>
+                    <input type="checkbox" nz-input disabled>
+                </td>
+
+            </tr>
+            <tr>
+                <td>4.</td>
+                <td>Access To Add New User</td>
+                <td>
+                    <input type="checkbox" nz-input formControlName="addUserAccess">
+                </td>
+                <td>
+                    <input type="checkbox" nz-input disabled>
+                </td>
+                <td>
+                    <input type="checkbox" nz-input disabled>
+                </td>
+                <td>
+                    <input type="checkbox" nz-input disabled>
+                </td>
+
+            </tr>
+            <tr>
+                <td>5.</td>
+                <td>Access To Brand Master</td>
+                <td>
+                    <input type="checkbox" nz-input formControlName="addBrandAccess">
+                </td>
+                <td>
+                    <input type="checkbox" nz-input formControlName="editBrandAccess">
+                </td>
+                <td>
+                    <input type="checkbox" nz-input formControlName="viewBrandAccess">
+                </td>
+                <td>
+                    <input type="checkbox" nz-input formControlName="deleteBrandAccess">
+                </td>
+
+            </tr>
+            <tr>
+                <td>6.</td>
+                <td>Access To Template Master</td>
+                <td>
+                    <input type="checkbox" nz-input formControlName="addTemplateAccess">
+                 </td>
+                <td>
+                    <input type="checkbox" nz-input formControlName="editTemplateAccess">
+                </td>
+                <td>
+                    <input type="checkbox" nz-input formControlName="viewTemplateAccess">
+                </td>
+                <td>
+                    <input type="checkbox" nz-input formControlName="deleteTemplateAccess">
+                </td>
+
+            </tr>
+            <tr>
+                <td>7.</td>
+                <td>Access To Report</td>
+                <td>
+                    <input type="checkbox" nz-input formControlName="hasReportAccess">
+                </td>
+                <td>
+                    <input type="checkbox" nz-input disabled>
+                </td>
+                <td>
+                    <input type="checkbox" nz-input disabled>
+                </td>
+                <td>
+                    <input type="checkbox" nz-input disabled>
+                </td>
+
+            </tr>
+        </tbody>
+    </nz-table>
+    <div nz-row [nzGutter]="[0,24]">
+        <div nz-col nzSpan="24" class="create-campaign">
+          <button nz-button nzType="primary">
+              Update Access
+          </button>
+        </div>
+    </div>
+</form>

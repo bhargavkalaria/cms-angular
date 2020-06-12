@@ -11,4 +11,23 @@ export class Urls {
   static getTopFiveBrandByBudget = Urls.baseUrl + 'DashBoardApi/GetTopFiveBrandByBudget';
   static getCampaignStatusList = Urls.baseUrl + 'DashBoardApi/GetCampaignStatusList';
   static getTopThreeResponse = Urls.baseUrl + 'DashBoardApi/GetTopThreeResponse';
+<<<<<<< Updated upstream
+=======
+  static getAllCampaign = Urls.baseUrl + 'CampaignApi/GetAllCampaigns';
+  static getCampaignById = Urls.baseUrl + 'CampaignApi/GetCampaign?id=';
+  static addCampaign = Urls.baseUrl + 'CampaignApi/InsertCampaign';
+  static updateCampaign = Urls.baseUrl + 'CampaignApi/UpdateCampaign';
+  static deleteCampaign = Urls.baseUrl + 'CampaignApi/DeleteCampaign?id=';
+  static getBrands = Urls.baseUrl + 'BrandApi/GetAllBrands';
+  static getMarketingType = Urls.baseUrl + 'CampaignApi/GetAllMTypes';
+  static getStrategy = Urls.baseUrl + 'CampaignApi/GetAllStrategies';
+  static getAllTemplate = Urls.baseUrl + 'TemplateApi/GetAllTemplates';
+  static getCampaignStatus = Urls.baseUrl + 'CampaignApi/GetAllCampaignStatuses';
+  static getAllCustomers = Urls.baseUrl + 'CustomerApi/GetAllCustomers';
+  static getCustomerByCampaign = Urls.baseUrl + 'CustomerApi/GetCustomersByCampaignId?campaignId=';
+  static getCampaignDetail = Urls.baseUrl + 'ResponseApi/GetResponseByCampaignId?id=';
+  static getUsersForRole = Urls.baseUrl + 'RolesApi/GetUsersList';
+  static getUserById = Urls.baseUrl + 'RolesApi/GetUser?id=';
+  static updateUserAccess = Urls.baseUrl + 'RolesApi/UpdateRole';
+>>>>>>> Stashed changes
 }

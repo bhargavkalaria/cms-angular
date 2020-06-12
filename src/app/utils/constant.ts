@@ -22,4 +22,27 @@ export class Constant {
   static errorResetPasswordLongMessage = 'Error in resetting password';
   static encryptionKey = 'Gateway@123';
   static dashboardError = 'Error in getting data';
+<<<<<<< Updated upstream
+=======
+  static brandsErrorMessage = 'Error in getting brands!';
+  static marketingTypeErrorMessage = 'Error in getting marketing types!';
+  static strategyErrorMessage = 'Error in getting strategy!';
+  static emailTemplateErrorMessage = 'Error in getting email template!';
+  static campaignErrorMessage = 'Error in getting campaign status!';
+  static customerErrorMessage = 'Error in getting customer!';
+  static campaignCustomerShortErrorMessage = 'Can\'t create campaign';
+  static campaignCustomerLongErrorMessage = 'Please select at least one customer';
+  static campaignSuccessCreationLongMessage = ' created successfully';
+  static campaignSuccessUpdateLongMessage = ' updated successfully';
+  static campaignSuccessCreationShortMessage = 'Campaign created';
+  static campaignErrorCreationShortMessage = 'Error in creating campaign';
+  static campaignUpdateCreationShortMessage = 'Error in creating campaign';
+  static campaignSuccessUpdateShortMessage = 'Campaign updated';
+  static campaignDeleteError = 'Error in deleting campaign';
+  static successCampaignDeleteShortMessage = 'Successfully deleted';
+  static successCampaignDeleteLongMessage = ' campaign deleted successfully';
+  static editAccessSuccessLongMessage = 'Access Updated Successfully';
+  static editAccessSuccessShortMessage = 'Update Success';
+  static editAccessFailedMessage = "Update Access Failed";
+>>>>>>> Stashed changes
 }

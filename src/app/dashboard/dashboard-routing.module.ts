@@ -88,7 +88,7 @@ const dashboardRoutes: Routes = [
         component: AddQuickCampaignComponent
       },
       {
-        path: 'update-role',
+        path: 'update-role/:id',
         component: UpdateRoleComponent
       },
       {
