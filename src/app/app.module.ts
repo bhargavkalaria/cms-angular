@@ -24,6 +24,7 @@ import {UserService} from './services/user.service';
 import {ResponsesComponent} from './components/responses/responses.component';
 import {NotificationService} from './services/notification.service';
 import {EncryptDecryptService} from './services/encrypt-decrypt.service';
+import { brandService } from './services/brand.service';
 
 registerLocaleData(en);
 const ngZorroConfig: NzConfig = {
@@ -47,7 +48,7 @@ const ngZorroConfig: NzConfig = {
   ],
   providers: [
     {
-      provide: NZ_CONFIG, useValue: ngZorroConfig
+      provide: NZ_I18N, useValue: en_US
     },
     {provide: NZ_I18N, useValue: en_US},
     UserService,

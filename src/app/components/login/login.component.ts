@@ -86,7 +86,6 @@ export class LoginComponent implements OnInit {
 
   setForgotPassword() {
     this.userService.forgotPassword(this.forgotPassword.value.email).then(result => {
-      console.log(result);
       this.router.navigate(['login']);
       this.notificationService.createNotification(
         this.notificationService.notificationSuccess,

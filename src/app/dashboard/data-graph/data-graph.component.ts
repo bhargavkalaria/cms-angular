@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Report } from '../../models/Report.model';
+import { reportService } from '../../services/report.service'
+import { error } from '@angular/compiler/src/util';
+import { ChartDataSets, ChartOptions } from 'chart.js';
+import { Color, Label } from 'ng2-charts';
+import { Constant } from '../../utils/constant';
 
 @Component({
   selector: 'app-data-graph',
@@ -6,10 +14,193 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./data-graph.component.scss']
 })
 export class DataGraphComponent implements OnInit {
-
-  constructor() { }
+  reportForm: FormGroup;
+  isLoading = true;
+  dateFormat = Constant.dateFormat;
+  startDate;
+  endDate;
+  List = [];
+  reportData = [];
+  quickList = [];
+  constructor(private router: Router, private formBuilder: FormBuilder, private _reportService: reportService) {
+    this.reportForm = this.formBuilder.group({
+      CId: [null],
+      campaignType: [null, Validators.required],
+      range: [null]
+    })
+    this.isLoading = false;
+  }
 
   ngOnInit(): void {
+  }
+
+  chartReportData: ChartDataSets[] = [
+    {
+      label: Constant.Positive,
+      data: [],
+      backgroundColor: '#D6E9C6',
+      stack: 'a'
+    },
+    {
+      label: Constant.Negative,
+      data: [],
+      backgroundColor: '#FAEBCC',
+      stack: 'a'
+    },
+    {
+      label: Constant.Neutral,
+      data: [],
+      backgroundColor: '#0F2027',
+      stack: 'a'
+    },
+    {
+      label: Constant.NoResponse,
+      data: [],
+      backgroundColor: '#EBCCD1',
+      stack: 'a'
+    },
+  ];
+  chartReportLabel: Label[] = [];
+  chartReportOptions: ChartOptions = {
+    animation: {
+      duration: 10,
+    },
+    responsive: true,
+    scales: {
+      xAxes: [{
+        stacked: true,
+        gridLines: { display: false },
+      }],
+      yAxes: [{
+        stacked: true,
+        ticks: { stepSize: 3, beginAtZero: true }
+      }],
+    },
+
+  };
+
+  dataChanged(data) {
+    console.log(data)
+    this.isLoading = true;
+    this.List.length = 0
+    this.quickList.length = 0
+    if (data === Constant.reportCampaign) {
+      this._reportService.getCampaigns().then((res: any) => {
+        this.List = res
+        this.isLoading = false;
+      }).catch(
+        (error) => console.log(error)
+      )
+    }
+    if (data === Constant.reportQuickCampaign) {
+      this._reportService.getQuickCampaigns().then((res: any) => {
+        this.quickList = res
+        this.isLoading = false;
+      }).catch(
+        (error) => console.log(error)
+      )
+    }
+  }
+
+
+  Search(): void {
+    this.isLoading = true;
+    if (this.reportForm.controls[Constant.dateRange].value != null) {
+      this.startDate = this.reportForm.controls[Constant.dateRange].value[0];
+      this.endDate = this.reportForm.controls[Constant.dateRange].value[1];
+    }
+    //campaign by dates
+    if (this.reportForm.controls[Constant.campaignType].value == Constant.reportCampaign
+      && this.startDate != null && this.endDate != null) {
+      this._reportService.GetCampaignReportByDate(this.startDate, this.endDate).then((res: any) => {
+        console.log(res)
+        this.reportData.length = 0
+        this.reportData = res
+        this.generateReportChart(res)
+        this.isLoading = false;
+      }).catch(
+        (err) => console.log(err)
+      )
+    }
+    //quick-campaign by dates
+    if (this.reportForm.controls[Constant.campaignType].value == Constant.reportQuickCampaign
+      && this.startDate != null && this.endDate != null) {
+      this._reportService.GetQuickCampaignReportByDate(this.startDate, this.endDate).then((res: any) => {
+        console.log(res)
+        this.isLoading = false;
+        this.reportData.length = 0
+        this.reportData = res
+        this.generateReportChart(res)
+        this.isLoading = false;
+      }).catch(
+        (err) => console.log(err)
+      )
+    }
+    //campaign by id
+    if (this.reportForm.controls[Constant.campaignType].value == Constant.reportCampaign
+      && this.reportForm.controls[Constant.reportCampaignId].value != null) {
+      this._reportService.GetCampaignReportById(this.reportForm.controls[Constant.reportCampaignId].value).then((res: any) => {
+        console.log(res)
+        this.reportData.length = 0
+        this.reportData.push(res)
+        this.generateReportChart(this.reportData)
+        this.isLoading = false;
+
+      }).catch(
+        (err) => console.log(err)
+      )
+    }
+    //quick-campaign by id
+    if (this.reportForm.controls[Constant.campaignType].value == Constant.reportQuickCampaign
+      && this.reportForm.controls[Constant.reportCampaignId].value != null) {
+      this._reportService.GetQuickCampaignReportById(this.reportForm.controls[Constant.reportCampaignId].value).then((res: any) => {
+        console.log(res)
+        this.reportData.length = 0
+        this.reportData.push(res)
+        this.generateReportChart(this.reportData)
+        this.isLoading = false;
+      }).catch(
+        (err) => console.log(err)
+      )
+    }
+    //all campaigns
+    if (this.reportForm.controls[Constant.campaignType].value == Constant.reportCampaign
+      && this.startDate == null && this.endDate == null
+      && this.reportForm.controls[Constant.reportCampaignId].value == null) {
+      this._reportService.GetCampaignReportByType().then((res: any) => {
+        console.log(res)
+        this.reportData.length = 0
+        this.reportData = res
+        this.generateReportChart(res)
+        this.isLoading = false;
+      }).catch(
+        (err) => console.log(err)
+      )
+    }
+    //all quick-campaigns
+    if (this.reportForm.controls[Constant.campaignType].value == Constant.reportQuickCampaign
+      && this.startDate == null && this.endDate == null
+      && this.reportForm.controls[Constant.reportCampaignId].value == null) {
+      this._reportService.GetQuickCampaignReportByType().then((res: any) => {
+        console.log(res)
+        this.reportData.length = 0
+        this.reportData = res
+        this.generateReportChart(res)
+        this.isLoading = false;
+      }).catch(
+        (err) => console.log(err)
+      )
+    }
+  }
+
+  generateReportChart(chartData) {
+    chartData.forEach(d => {
+      this.chartReportData[0].data.push(d.Positive);
+      this.chartReportData[1].data.push(d.Negative);
+      this.chartReportData[2].data.push(d.Neutral);
+      this.chartReportData[3].data.push(d.NoResponse);
+      this.chartReportLabel.push(d.CampaignName);
+    });
   }
 
 }

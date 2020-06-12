@@ -1,18 +1,21 @@
 export class Constant {
   static somethingWentWrong = 'Something went wrong';
+  static ErrorShortMessage = 'Error occured';
   static shortPasswordTrimMessage = 'Password Error';
   static passwordTrimMessage = 'Please enter proper password';
   static emailError = 'Please input your email!';
   static passwordError = 'Please input your Password!';
+  static minLengthPassword = 'Minimum password of 6 character';
   static firstName = 'Please enter first name!';
   static lastName = 'Please enter last name!';
   static loginError = 'Error in login!';
   static forgotError = 'Error in forgot password!';
   static successForgotShortMessage = 'Forgot password';
   static successForgotLongMessage = 'Please check your email';
-  static successRegisterUserShortMessage = 'UserModel registered';
-  static successRegisterUserLongMessage = 'UserModel registered successfully';
+  static successRegisterUserShortMessage = 'User registered';
+  static successRegisterUserLongMessage = 'User registered successfully';
   static errorRegisterUserShortMessage = 'Registration failed';
+  static errorRegisterUserLongMessage = 'Please try again later';
   static resetOldPassword = 'Please input your old password!';
   static resetNewPassword = 'Please input your new password!';
   static successResetPasswordShortMessage = 'Password reset';
@@ -37,4 +40,17 @@ export class Constant {
   static campaignDeleteError = 'Error in deleting campaign';
   static successCampaignDeleteShortMessage = 'Successfully deleted';
   static successCampaignDeleteLongMessage = ' campaign deleted successfully';
+  static dateFormat = 'MM/dd/yyyy';
+  static Positive = 'Positive';
+  static Negative = 'Negative';
+  static Neutral = 'Neutral';
+  static NoResponse = 'No Response';
+  static reportCampaign = 'campaign';
+  static reportQuickCampaign = 'quick-campaign';
+  static campaignType = 'campaignType';
+  static dateRange = 'range';
+  static reportCampaignId = 'CId';
+  static brandAddSuccessShortMessage  = 'Brand Added'
+  static brandUpdateSuccessShortMessage  = 'Brand Updated'
+  static brandDeleteSuccessShortMessage  = 'Brand Deleted'
 }
