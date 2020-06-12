@@ -36,4 +36,5 @@ export class Urls {
   static GetQuickCampaignReportByDate = Urls.baseUrl + 'ReportApi/GetQuickCampaignReportByDate';
   static GetQuickCampaignReportById = Urls.baseUrl + 'ReportApi/GetQuickCampaignReportById?id=';
   static GetQuickCampaignReportByType = Urls.baseUrl + 'ReportApi/GetQuickCampaignReportByType';
+  static uploadCustomer = Urls.baseUrl + 'CustomerApi/AddCustomers';
 }
