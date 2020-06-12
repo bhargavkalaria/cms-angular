@@ -9,16 +9,25 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {registerLocaleData} from '@angular/common';
 import en from '@angular/common/locales/en';
 import {LoginComponent} from './components/login/login.component';
-import {en_US, NgZorroAntdModule, NZ_I18N, NzConfig, NZ_CONFIG} from 'ng-zorro-antd';
+import {
+  en_US,
+  NgZorroAntdModule,
+  NZ_I18N,
+  NzConfig,
+  NZ_CONFIG,
+  NzGridModule,
+  NzInputModule,
+  NzFormModule,
+  NzSelectModule, NzSpinModule, NzButtonModule, NzNotificationModule
+} from 'ng-zorro-antd';
 import {UserService} from './services/user.service';
 import {ResponsesComponent} from './components/responses/responses.component';
 import {NotificationService} from './services/notification.service';
 import {EncryptDecryptService} from './services/encrypt-decrypt.service';
-import { brandService } from './services/brand.service';
 
 registerLocaleData(en);
 const ngZorroConfig: NzConfig = {
-  notification: {nzMaxStack: 1, nzPlacement: 'bottomRight'}
+  notification: {nzMaxStack: 1, nzPlacement: 'bottomRight'},
 };
 
 @NgModule({
@@ -38,12 +47,12 @@ const ngZorroConfig: NzConfig = {
   ],
   providers: [
     {
-      provide: NZ_I18N, useValue: en_US
+      provide: NZ_CONFIG, useValue: ngZorroConfig
     },
+    {provide: NZ_I18N, useValue: en_US},
     UserService,
     NotificationService,
-    EncryptDecryptService,
-    brandService
+    EncryptDecryptService
   ],
   bootstrap: [AppComponent]
 })

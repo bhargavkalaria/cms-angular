@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   resetId;
 
   constructor(private router: Router,
-              private userService: UserService,
+              public userService: UserService,
               private formBuilder: FormBuilder,
               private notificationService: NotificationService,
               private activatedRoute: ActivatedRoute,
@@ -64,13 +64,16 @@ export class LoginComponent implements OnInit {
   doLogin(): void {
     if (this.userForm.valid) {
       if (this.userForm.value.password.trim()) {
+        this.userService.isLoading = true;
         this.userService.login(this.userForm.value).then(result => {
           this.userService.setUserData(result, this.userForm.value.RememberMe);
         }).catch(error => {
+          console.log(error);
+          this.userService.isLoading = false;
           this.notificationService.createNotification(
             this.notificationService.notificationError,
             Constant.loginError,
-            error.error);
+            error.error.Message);
         });
       } else {
         this.notificationService.createNotification(
@@ -83,7 +86,7 @@ export class LoginComponent implements OnInit {
 
   setForgotPassword() {
     this.userService.forgotPassword(this.forgotPassword.value.email).then(result => {
-      console.log(result)
+      console.log(result);
       this.router.navigate(['login']);
       this.notificationService.createNotification(
         this.notificationService.notificationSuccess,
@@ -94,7 +97,7 @@ export class LoginComponent implements OnInit {
       this.notificationService.createNotification(
         this.notificationService.notificationError,
         Constant.forgotError,
-        error.error);
+        error.error.Message);
     });
   }
 

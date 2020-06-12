@@ -1,1 +1,63 @@
-<p>campaign-detail works!</p>
+<ng-template [ngIf]="!isLoading">
+  <div nz-row [nzGutter]="[0,24]">
+    <div nz-col nzSpan="24">
+      <nz-breadcrumb>
+        <nz-breadcrumb-item routerLink="../">
+          <i nz-icon nzType="home"></i>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item routerLink="../../../campaign">
+          <a><i nz-icon nzType="notification"></i><span>Campaign</span></a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          Campaign detail ({{campaignDetails.Campaign.CampaignName}})
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
+    </div>
+  </div>
+  <nz-row [nzGutter]="[24, 24]">
+    <nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="12" nzXl="6" nzXXl="6">
+      <nz-card class="home-header-card">
+        <h3>Campaign Owner</h3>
+        <h5>{{campaignDetails.Campaign.Brand.BrandName}}</h5>
+      </nz-card>
+    </nz-col>
+    <nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="12" nzXl="6" nzXXl="6">
+      <nz-card class="home-header-card">
+        <h3>Budget</h3>
+        <h5>{{campaignDetails.Campaign.CampaignBudget}}</h5>
+      </nz-card>
+    </nz-col>
+    <nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="12" nzXl="6" nzXXl="6">
+      <nz-card class="home-header-card">
+        <h3>Customers</h3>
+        <h5>{{campaignDetails.Positive + campaignDetails.NoResponse + campaignDetails.Neutral + campaignDetails.Negative}}</h5>
+      </nz-card>
+    </nz-col>
+    <nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="12" nzXl="6" nzXXl="6">
+      <nz-card class="home-header-card">
+        <h3>Expected Revenue</h3>
+        <h5>{{campaignDetails.Campaign.ExpectedRevenue}}</h5>
+      </nz-card>
+    </nz-col>
+  </nz-row>
+  <nz-row [nzGutter]="[24, 24]">
+    <nz-col nzSpan="12">
+      <div class="chart-design">
+        <h1>Campaign response details</h1>
+        <div style="display: block;">
+          <canvas baseChart width="400" height="400"
+                  [datasets]="topThreeCampaignData"
+                  [labels]="topThreeCampaignLabel"
+                  [legend]="true"
+                  [chartType]="'bar'">
+          </canvas>
+        </div>
+      </div>
+    </nz-col>
+  </nz-row>
+</ng-template>
+<ng-template [ngIf]="isLoading">
+  <div class="dashboard-loader">
+    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+  </div>
+</ng-template>
