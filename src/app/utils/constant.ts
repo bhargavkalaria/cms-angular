@@ -50,9 +50,9 @@ export class Constant {
   static campaignType = 'campaignType';
   static dateRange = 'range';
   static reportCampaignId = 'CId';
-  static brandAddSuccessShortMessage  = 'Brand Added'
-  static brandUpdateSuccessShortMessage  = 'Brand Updated'
-  static brandDeleteSuccessShortMessage  = 'Brand Deleted'
+  static brandAddSuccessShortMessage = 'Brand Added';
+  static brandUpdateSuccessShortMessage = 'Brand Updated';
+  static brandDeleteSuccessShortMessage = 'Brand Deleted';
   static fileFormatError = 'File format error';
   static fileFormatErrorDescription = 'Please upload .xlsx file only';
   static uploadFailText = 'Upload Fail';
@@ -71,4 +71,7 @@ export class Constant {
   static uploadSuccess = 'Uploaded successfully';
   static uploadSuccessDetails = 'Customer is uploaded successfully';
   static uploadErrorFail = 'Something went wrong, please try again later';
+  static editAccessSuccessLongMessage = 'Access Updated Successfully';
+  static editAccessSuccessShortMessage = 'Update Success';
+  static editAccessFailedMessage = 'Update Access Failed';
 }
