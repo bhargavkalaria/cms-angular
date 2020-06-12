@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Brand } from '../../../models/Brand.model'
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { brandService } from '../../../services/brand.service'
 import { NotificationService } from '../../../services/notification.service'
+import {Constant} from '../../../utils/constant';
 
 @Component({
   selector: 'app-brand-list',
@@ -13,32 +14,34 @@ export class BrandListComponent implements OnInit {
 
   public brandList: Brand[];
   constructor(private router: Router,
-    private _brandService:brandService,private _notification: NotificationService) { }
+    private _brandService: brandService, private _notification: NotificationService) { }
 
 
   ngOnInit(): void {
-    this._brandService.getBrands().then((result:any) =>{
+    this._brandService.getBrands().then((result: any) => {
       this.brandList = result
-    }).catch(error =>{
-      this._notification.createNotification(this._notification.notificationError,'Error occured','Something went wrong')
+    }).catch(error => {
+      this._notification.createNotification(this._notification.notificationError,
+      Constant.ErrorShortMessage,Constant.somethingWentWrong)
     })
   }
-  Add():void{
+  Add(): void {
     this.router.navigate(['dashboard/brand']);
   }
-    Edit(item:Brand):void{
-      this.router.navigate(['dashboard/brand-list/edit/',item.BrandId]);
-    }
-  
-    delete(item:Brand):void{
-      this._brandService.Delete(item.BrandId).subscribe((res) => {
-        this._notification.createNotification(this._notification.notificationSuccess,'Deleted successfully',
-        'Brand '+ item.BrandName+' Deleted')
-        this.ngOnInit()
-      },
-      (error:any) => console.log(error)
-      )
-    }
-  
+  Edit(item: Brand): void {
+    this.router.navigate(['dashboard/brand-list/edit/', item.BrandId]);
+  }
+
+  delete(item: Brand): void {
+    this._brandService.Delete(item.BrandId).then((res:any) => {
+      this._notification.createNotification(
+      this._notification.notificationSuccess,
+      Constant.brandDeleteSuccessShortMessage,res)
+      this.ngOnInit()
+    }).catch((error: any) => {
+      console.log(error)
+    })
+  }
+
 
 }

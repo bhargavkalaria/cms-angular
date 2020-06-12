@@ -1,67 +1,71 @@
 import { Injectable } from '@angular/core';
-import { from, Observable } from 'rxjs';
-import { HttpClient , HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Brand } from '../models/brand.model'
+import { Urls } from '../utils/urls'
 
 @Injectable({
     providedIn: 'root'
 })
-export class brandService{
+export class brandService {
     constructor(private httpClient: HttpClient) {
     }
-    url= "https://localhost:44308/api/BrandApi/";
 
-    getBrands(){
-        return new Promise((resolve,reject)=>{
-            return this.httpClient.get(this.url+"GetAllBrands")
-            .subscribe((res:any)=>{
-                resolve(res)
-            },
-           err=>{
-                reject(err)
-           }
-            )
+    getBrands() {
+        return new Promise((resolve, reject) => {
+            return this.httpClient.get(Urls.getBrands)
+                .subscribe((res: any) => {
+                    resolve(res)
+                }, err => {
+                    reject(err)
+                });
         });
     }
 
-    getBrandById(id : number): Observable<Brand> {
-        return this.httpClient.get<Brand>(`${this.url+'GetBrand'}/${id}`); 
+    getBrandById(id: number) {
+        return new Promise((resolve, reject) => {
+            return this.httpClient.get<Brand>(Urls.getBrandById + id)
+                .subscribe((res: any) => {
+                    resolve(res)
+                }, err => {
+                    reject(err)
+                });
+        });
     }
 
-    Add(data: Brand) :Observable<void>
-    {
-      return this.httpClient.post<void>(this.url+"InsertBrand", data, {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json'
-            })
-        }
-        );  
+    Add(data) {
+        return new Promise((resolve, reject) => {
+            return this.httpClient.post(Urls.addBrand, data)
+                .subscribe((res: any) => {
+                    resolve(res);
+                    console.log(res)
+                }, err => {
+                    reject(err);
+                    console.log(err)
+                });
+        });
     }
 
-    Update(data: Brand) 
-    {
-        return new Promise((resolve,reject)=>{
-            return this.httpClient.put<void>(`${this.url+'UpdateBrand'}`, data, {
-                headers: new HttpHeaders({
-                    'Content-Type': 'application/json'
-                })
-            }
-            ).subscribe((res:any)=>{
+    Update(data) {
+        return new Promise((resolve, reject) => {
+            return this.httpClient.put(Urls.updateBrand, data).subscribe((res: any) => {
                 resolve(res)
-            },
-            
-            err => {
+                console.log(res)
+            }, err => {
                 reject(err)
                 console.log(err)
-            }
-            )
+            });
         })
-   
     }
 
-    Delete(id : number): Observable<void> {
-        return this.httpClient.delete<void>(`${this.url+'DeleteBrand/'}/${id}`); 
+    Delete(id) {
+        return new Promise((resolve, reject) => {
+            return this.httpClient.delete(Urls.deleteBrand + id)
+                .subscribe((res: any) => {
+                    resolve(res);
+                }, err => {
+                    reject(err);
+                });
+        });
     }
-
 
 }

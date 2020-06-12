@@ -5,6 +5,7 @@ import { Brand } from '../../../models/brand.model'
 import { brandService } from '../../../services/brand.service'
 import {  HttpErrorResponse} from '@angular/common/http';
 import { NotificationService } from '../../../services/notification.service'
+import {Constant} from '../../../utils/constant';
 
 @Component({
   selector: 'app-brand-add-edit',
@@ -20,58 +21,49 @@ export class BrandAddEditComponent implements OnInit {
     private _brandService:brandService,private activatedRoute: ActivatedRoute,
     private _notification: NotificationService) {
     this.brandForm = this.formBuilder.group({
-      brandId: [null],
-      brandName: [null, [Validators.required,Validators.minLength(2)]]
+      BrandId: [null],
+      BrandName: [null, [Validators.required,Validators.minLength(2)]]
     })
    }
 
 
-   ngOnInit(): void {
+  ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(parameterMap => {
-       this.id =  this.activatedRoute.snapshot.params.id
-       console.log(this.id)
-    });
-    if(this.id == null)
-    {
-      console.log('ADD')
-    }
-    else{
-      this._brandService.getBrandById(this.id).subscribe((res)=> {
-        this.brandForm.setValue({
-          brandId:res.BrandId,
-          brandName:res.BrandName
-        })
+      this.id =  this.activatedRoute.snapshot.params.id
+   });
+    if (this.id != null) {
+      this._brandService.getBrandById(this.id).then((res: Brand) => {
+        this.brandForm.patchValue(res);
+      }).catch((err) => {
+        console.log(err)
       })
     }
-
-    
   }
 
   add():void{
-    console.log(this.brandForm.value)
-    if(this.brandForm.controls['brandId'].value == null)
+ 
+    if(this.id ==null)
     {
-      this._brandService.Add(this.brandForm.value).subscribe(
-        ()=>{
-          this._notification.createNotification(this._notification.notificationSuccess,'Inserted successfully',
-        'Brand '+ this.brandForm.controls['brandName'].value+' Added')
-        this.router.navigate(['dashboard/brand-list'])
-      },
-      (err:any)=>{ 
-        this._notification.createNotification(this._notification.notificationError,'Error occured',err.error.Message)
-      }
-      );
+      this._brandService.Add(this.brandForm.value).then((res:any)=>{
+          this._notification.createNotification(
+          this._notification.notificationSuccess,
+          Constant.brandAddSuccessShortMessage,res);
+          this.router.navigate(['dashboard/brand-list']);
+          }).catch((err:HttpErrorResponse)=>{ 
+          this._notification.createNotification(
+          this._notification.notificationError,Constant.ErrorShortMessage,err.error.Message);
+        });
     }
     else{
-      this._brandService.Update(this.brandForm.value).then(
-        (res:any)=>{
-          console.log(res)
-          this._notification.createNotification(this._notification.notificationSuccess,'Updated successfully',
-        'Brand '+ this.brandForm.controls['brandName'].value+' Updated')
-        this.router.navigate(['dashboard/brand-list'])
-      },
-      (err:HttpErrorResponse)=> {
-        this._notification.createNotification(this._notification.notificationError,'Error occured',err.error.Message)
+        this._brandService.Update(this.brandForm.value).then((res:any)=>{
+        this._notification.createNotification(
+        this._notification.notificationSuccess,
+        Constant.brandUpdateSuccessShortMessage,res);
+          this.router.navigate(['dashboard/brand-list']);
+      }).catch((err:HttpErrorResponse)=> {
+        this._notification.createNotification(
+        this._notification.notificationError,
+        Constant.ErrorShortMessage,err.error.Message);
       }
       )
     }

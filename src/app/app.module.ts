@@ -42,8 +42,7 @@ const ngZorroConfig: NzConfig = {
     },
     UserService,
     NotificationService,
-    EncryptDecryptService,
-    brandService
+    EncryptDecryptService
   ],
   bootstrap: [AppComponent]
 })

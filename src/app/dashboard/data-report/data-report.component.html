@@ -1,3 +1,4 @@
+<ng-template [ngIf]="!isLoading">
 <form nz-form [nzLayout]="'inline'" [formGroup]="reportForm" (ngSubmit)="Search()">
   <nz-form-item>
     <nz-form-control nzErrorTip="Please select Campaign!">
@@ -69,3 +70,9 @@
     </tr>
   </tbody>
 </nz-table>
+</ng-template>
+<ng-template [ngIf]="isLoading">
+  <div class="dashboard-loader">
+    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+  </div>
+</ng-template>

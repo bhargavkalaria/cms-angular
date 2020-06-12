@@ -1,5 +1,6 @@
 export class Constant {
   static somethingWentWrong = 'Something went wrong';
+  static ErrorShortMessage = 'Error occured';
   static shortPasswordTrimMessage = 'Password Error';
   static passwordTrimMessage = 'Please enter proper password';
   static emailError = 'Please input your email!';
@@ -21,4 +22,17 @@ export class Constant {
   static successResetPasswordLongMessage = 'Password reset successfully';
   static errorResetPasswordLongMessage = 'Error in resetting password';
   static encryptionKey = 'Gateway@123';
+  static dateFormat = 'MM/dd/yyyy';
+  static Positive = 'Positive';
+  static Negative = 'Negative';
+  static Neutral = 'Neutral';
+  static NoResponse = 'No Response';
+  static reportCampaign = 'campaign';
+  static reportQuickCampaign = 'quick-campaign';
+  static campaignType = 'campaignType';
+  static dateRange = 'range';
+  static reportCampaignId = 'CId';
+  static brandAddSuccessShortMessage  = 'Brand Added'
+  static brandUpdateSuccessShortMessage  = 'Brand Updated'
+  static brandDeleteSuccessShortMessage  = 'Brand Deleted'
 }
