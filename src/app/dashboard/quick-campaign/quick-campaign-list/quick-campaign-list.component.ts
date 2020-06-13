@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {QuickCampaignService} from '../../../services/quick-campaign.service';
+import {QuickCampaignModel} from '../../../models/quickCampaignModel';
 
 @Component({
   selector: 'app-quick-campaign-list',
@@ -6,10 +8,36 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./quick-campaign-list.component.scss']
 })
 export class QuickCampaignListComponent implements OnInit {
+  quickCampaignList: QuickCampaignModel[];
+  isLoading = true;
+  listOfDisplayData: QuickCampaignModel[];
+  visible = false;
+  searchValue = '';
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private quickCampaignService: QuickCampaignService) {
   }
 
+  ngOnInit(): void {
+    this.getList();
+  }
+
+  getList() {
+    this.quickCampaignService.getQuickCampaignList().then((result: any) => {
+      this.isLoading = false;
+      this.quickCampaignList = [...result];
+      this.listOfDisplayData = [...this.quickCampaignList];
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.quickCampaignList.filter((item) => item.QuickCampaignName.toLowerCase().indexOf(this.searchValue) !== -1);
+  }
 }
