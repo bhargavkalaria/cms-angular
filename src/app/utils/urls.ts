@@ -42,4 +42,9 @@ export class Urls {
   static getUserById = Urls.baseUrl + 'RolesApi/GetUser?id=';
   static getQuickCampaignList = Urls.baseUrl + 'QuickCampaignApi/GetAllQuickCampaigns';
   static addQuickCampaign = Urls.baseUrl + 'QuickCampaignApi/InsertQuickCampaign';
+  static emailTemplateList = Urls.baseUrl + 'TemplateApi/GetAllTemplates';
+  static addEmailTemplate = Urls.baseUrl + 'TemplateApi/InsertTemplate';
+  static getEmailTemplateById = Urls.baseUrl + 'TemplateApi/GetTemplate?id=';
+  static updateEmailTemplate = Urls.baseUrl + 'TemplateApi/UpdateTemplate';
+  static deleteEmailTemplate = Urls.baseUrl + 'TemplateApi/DeleteTemplate?id=';
 }

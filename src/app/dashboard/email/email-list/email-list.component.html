@@ -1,1 +1,70 @@
-<p>email-list works!</p>
+<ng-template [ngIf]="!isLoading">
+  <div class="add-template-button ">
+    <button nz-button nzType="primary" routerLink="../email-template/create">
+      <i nz-icon nzType="plus" nzTheme="outline"></i>
+      Create email template
+    </button>
+  </div>
+  <nz-table #basicTable [nzData]="listOfDisplayData" [nzShowSizeChanger]="true" [nzScroll]="{ y: '50vh' }">
+    <thead>
+    <tr>
+      <th nzCustomFilter>
+        Name
+        <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+          <i nz-icon nzType="search"></i>
+        </nz-filter-trigger>
+      </th>
+      <th>Last updated</th>
+      <th>Created at</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.TemplateName }}</td>
+      <td>{{ data.LastUpdated | date}}</td>
+      <td>{{ data.CreatedDate | date}}</td>
+      <td>
+        <i nz-icon nzType="edit" nzTheme="outline"
+           class="cursor-pointer" nzTooltipTitle="Edit" nzTooltipPlacement="top"
+           nz-button nz-tooltip routerLink="../email-template/edit/{{data.TemplateId}}"></i>
+        {{'    '}}
+        <i nz-icon nzType="delete" nzTheme="outline"
+           class="cursor-pointer" nzTooltipTitle="Delete"
+           nzTooltipPlacement="top" nz-button nz-tooltip nz-popconfirm
+           nzPopconfirmTitle="Are you sure, delete email template {{data.TemplateName}} ?"
+           (nzOnConfirm)="deleteEmailTemplate(data)"
+           nzPopconfirmPlacement="rightTop"></i>
+        {{'    '}}
+        <i nz-icon nzType="eye" nzTheme="outline" class="cursor-pointer" nzTooltipTitle="Preview"
+           nzTooltipPlacement="top"
+           nz-button nz-tooltip (click)="previewEmailTemplate(data)"></i>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue"/>
+        <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+          Search
+        </button>
+        <button nz-button nzSize="small" (click)="reset()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+</ng-template>
+<ng-template [ngIf]="isLoading">
+  <div class="dashboard-loader">
+    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+  </div>
+</ng-template>
+
+<nz-modal [(nzVisible)]="isEmailTemplateModalVisible" nzTitle="{{modalTitle}}" (nzOnCancel)="hideModal()"
+          (nzOnOk)="hideModal()">
+  <div class="preview-email" [innerHTML]="modalBody"></div>
+  <div *nzModalFooter>
+    <button nz-button nzType="primary" (click)="hideModal()">Close</button>
+  </div>
+</nz-modal>

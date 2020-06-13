@@ -1,1 +1,45 @@
-<p>email-add-edit works!</p>
+<ng-template [ngIf]="!isLoading">
+  <div nz-row [nzGutter]="[0,24]">
+    <div nz-col nzSpan="24">
+      <nz-breadcrumb>
+        <nz-breadcrumb-item routerLink="../">
+          <i nz-icon nzType="home"></i>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item routerLink="{{editTemplateId?'../../..':'../..'}}/email-template">
+          <a><i nz-icon nzType="notification"></i><span>Email Templates</span></a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          {{editTemplateId ? 'Update email template' : 'Create email template'}}
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="[24,0]" [formGroup]="emailTemplate" class="campaign-form">
+    <div nz-col class="campaign-left" nzXs="24" nzSm="24" nzMd="16" nzLg="16" nzXl="16" nzXXl="16">
+      <div>
+        <nz-form-label nz-tab-label class="p-0">Template Name</nz-form-label>
+      </div>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please enter email template name">
+          <input nz-input type="text" formControlName="TemplateName">
+        </nz-form-control>
+      </nz-form-item>
+      <div>
+        <nz-form-label nz-tab-label class="p-0">Template Design</nz-form-label>
+      </div>
+      <ckeditor formControlName="TemplateData"></ckeditor>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="[0,24]">
+    <div nz-col nzSpan="24" class="create-campaign">
+      <button nz-button nzType="primary" [disabled]="emailTemplate.invalid"
+              (click)="addTemplate()">{{editTemplateId ? 'Update email template' : 'Create email template'}}
+      </button>
+    </div>
+  </div>
+</ng-template>
+<ng-template [ngIf]="isLoading">
+  <div class="dashboard-loader">
+    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+  </div>
+</ng-template>

@@ -38,8 +38,10 @@ export class Constant {
   static campaignUpdateCreationShortMessage = 'Error in creating campaign';
   static campaignSuccessUpdateShortMessage = 'Campaign updated';
   static campaignDeleteError = 'Error in deleting campaign';
+  static emailTemplateDeleteError = 'Error in deleting email template';
   static successCampaignDeleteShortMessage = 'Successfully deleted';
   static successCampaignDeleteLongMessage = ' campaign deleted successfully';
+  static successQuickCampaignDeleteLongMessage = ' email template deleted successfully';
   static dateFormat = 'MM/dd/yyyy';
   static Positive = 'Positive';
   static Negative = 'Negative';
@@ -74,4 +76,11 @@ export class Constant {
   static editAccessSuccessLongMessage = 'Access Updated Successfully';
   static editAccessSuccessShortMessage = 'Update Success';
   static editAccessFailedMessage = 'Update Access Failed';
+  static errorEmailTemplate = 'Can\'t get email template';
+  static updateEmailStatusSuccess = 'Email template updated';
+  static updateEmailStatusLongSuccess = ' email template updated successfully';
+  static addEmailTemplateShortMessage = 'Email template added';
+  static addEmailStatusSuccess = ' added successfully';
+  static updateEmailError = 'Email template Update failed';
+  static addEmailError = 'Fail to add email template';
 }

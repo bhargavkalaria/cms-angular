@@ -68,15 +68,15 @@ const dashboardRoutes: Routes = [
         component: DataGraphComponent
       },
       {
-        path: 'email-list',
+        path: 'email-template',
         component: EmailListComponent
       },
       {
-        path: 'email-add-edit',
+        path: 'email-template/create',
         component: EmailAddEditComponent
       },
       {
-        path: 'email-add-edit/:id',
+        path: 'email-template/edit/:id',
         component: EmailAddEditComponent
       },
       {
