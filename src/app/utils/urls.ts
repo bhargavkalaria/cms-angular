@@ -38,6 +38,8 @@ export class Urls {
   static GetQuickCampaignReportByType = Urls.baseUrl + 'ReportApi/GetQuickCampaignReportByType';
   static uploadCustomer = Urls.baseUrl + 'CustomerApi/AddCustomers';
   static updateUserAccess = Urls.baseUrl + 'RolesApi/UpdateRole';
+  static getUsersForRole = Urls.baseUrl + 'RolesApi/GetUsersList';
+  static getUserById = Urls.baseUrl + 'RolesApi/GetUser?id=';
   static getQuickCampaignList = Urls.baseUrl + 'QuickCampaignApi/GetAllQuickCampaigns';
   static addQuickCampaign = Urls.baseUrl + 'QuickCampaignApi/InsertQuickCampaign';
 }
