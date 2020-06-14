@@ -3,6 +3,7 @@ import {CampaignService} from '../../../services/campaign.service';
 import {NotificationService} from '../../../services/notification.service';
 import {Constant} from '../../../utils/constant';
 import {CampaignModel} from '../../../models/campaignModel';
+import {UserService} from '../../../services/user.service';
 
 @Component({
   selector: 'app-campaign-list',
@@ -16,7 +17,9 @@ export class CampaignListComponent implements OnInit {
   listOfDisplayData: CampaignModel[];
   isLoading = true;
 
-  constructor(private campaignService: CampaignService, private notificationService: NotificationService) {
+  constructor(private campaignService: CampaignService,
+              private notificationService: NotificationService,
+              public userService: UserService) {
   }
 
   ngOnInit(): void {

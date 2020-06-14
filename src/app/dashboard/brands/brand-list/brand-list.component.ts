@@ -4,6 +4,7 @@ import {NotificationService} from '../../../services/notification.service';
 import {Constant} from '../../../utils/constant';
 import {BrandModel} from '../../../models/brandModel';
 import {BrandService} from '../../../services/brand.service';
+import {UserService} from '../../../services/user.service';
 
 @Component({
   selector: 'app-brand-list',
@@ -15,7 +16,9 @@ export class BrandListComponent implements OnInit {
   public brandList: BrandModel[];
 
   constructor(private router: Router,
-              private brandService: BrandService, private notification: NotificationService) {
+              private brandService: BrandService,
+              private notification: NotificationService,
+              public userService: UserService) {
   }
 
 
@@ -30,7 +33,7 @@ export class BrandListComponent implements OnInit {
   }
 
   Add(): void {
-    this.router.navigate(['dashboard/brand']);
+    this.router.navigate(['dashboard/brand-list/create']);
   }
 
   Edit(item: BrandModel): void {

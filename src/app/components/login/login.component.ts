@@ -49,16 +49,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.router.url.includes('/login')) {
+      this.userService.checkLogin();
       this.status = 'login';
     } else if (this.router.url.includes('/register-user')) {
       this.status = 'register-user';
     } else if (this.router.url.includes('/forgot-password')) {
       this.status = 'forgot-password';
-    } else if (this.router.url.includes('reset-password')) {
-      this.resetId = this.activatedRoute.snapshot.queryParams.id;
-      this.status = 'reset-password';
+      this.userService.checkLogin();
     }
-    this.userService.checkLogin();
   }
 
   doLogin(): void {

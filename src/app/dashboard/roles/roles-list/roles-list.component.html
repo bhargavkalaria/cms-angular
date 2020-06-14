@@ -1,20 +1,31 @@
-<nz-table [nzData]="userList">
+<ng-template [ngIf]="!isLoading">
+  <nz-table [nzData]="userList">
     <thead>
     <tr>
-        <th>User Id</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Role</th>
-        <th>Edit Access</th>
+      <th>User Id</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Role</th>
+      <th>Edit Access</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let item of userList">
-        <td>{{item.UId}}</td>
-        <td>{{item.FName}}</td>
-        <td>{{item.LName}}</td>
-        <td>{{item.Role}}</td>
-        <td><a class="btn" [routerLink]="['../update-role',item.UId]"><i nz-icon nzType="edit" nzTheme="outline"></i></a></td>
+      <td>{{item.UId}}</td>
+      <td>{{item.FName}}</td>
+      <td>{{item.LName}}</td>
+      <td>{{item.Role}}</td>
+      <td>
+        <i [routerLink]="['../','roles','edit',item.UId]" nz-icon nzType="edit" nzTooltipTitle="Update role"
+           nzTooltipPlacement="top"
+           nz-button nz-tooltip
+           nzTheme="outline"></i></td>
     </tr>
     </tbody>
-</nz-table>
+  </nz-table>
+</ng-template>
+<ng-template [ngIf]="isLoading">
+  <div class="dashboard-loader">
+    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+  </div>
+</ng-template>

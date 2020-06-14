@@ -1,7 +1,7 @@
 <ng-template [ngIf]="!isLoading">
-  <div class="add-quick-campaign-button">
-    <button nz-button nzType="primary" routerLink="../add-quick-campaign"><i nz-icon nzType="plus"
-                                                                             nzTheme="outline"></i>
+  <div class="add-quick-campaign-button" *ngIf="userService.userDetails.addQuickCampaignAccess">
+    <button nz-button nzType="primary" routerLink="../quick-campaign-list/create/"><i nz-icon nzType="plus"
+                                                                                      nzTheme="outline"></i>
       Create quick campaign
     </button>
   </div>

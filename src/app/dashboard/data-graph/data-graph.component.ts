@@ -20,6 +20,7 @@ export class DataGraphComponent implements OnInit {
   List = [];
   reportData = [];
   quickList = [];
+  filteredOptions = [];
 
   chartReportData: ChartDataSets[] = [
     {
@@ -195,6 +196,11 @@ export class DataGraphComponent implements OnInit {
   }
 
   generateReportChart(chartData) {
+    this.chartReportData[0].data = [];
+    this.chartReportData[1].data = [];
+    this.chartReportData[2].data = [];
+    this.chartReportData[3].data = [];
+    this.chartReportLabel = [];
     chartData.forEach(d => {
       this.chartReportData[0].data.push(d.Positive);
       this.chartReportData[1].data.push(d.Negative);
@@ -204,4 +210,21 @@ export class DataGraphComponent implements OnInit {
     });
   }
 
+  onChange(e, type) {
+    if (type === 'campaign') {
+      if (e) {
+        this.filteredOptions = [];
+        this.filteredOptions = this.List.filter(option => option.CampaignName.toLowerCase().indexOf(e.toLowerCase()) !== -1);
+      } else {
+        this.filteredOptions = [];
+      }
+    } else {
+      if (e) {
+        this.filteredOptions = [];
+        this.filteredOptions = this.quickList.filter(option => option.QuickCampaignName.toLowerCase().indexOf(e.toLowerCase()) !== -1);
+      } else {
+        this.filteredOptions = [];
+      }
+    }
+  }
 }

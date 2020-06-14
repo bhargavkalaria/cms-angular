@@ -11,6 +11,7 @@ import {NotificationService} from '../../../services/notification.service';
 import {QuickCampaignService} from '../../../services/quick-campaign.service';
 import {Router} from '@angular/router';
 import {CustomQuickCampaignModel} from '../../../models/customQuickCampaignModel';
+import {UserService} from '../../../services/user.service';
 
 @Component({
   selector: 'app-add-quick-campaign',

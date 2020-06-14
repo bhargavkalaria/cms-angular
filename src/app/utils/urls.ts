@@ -40,6 +40,7 @@ export class Urls {
   static updateUserAccess = Urls.baseUrl + 'RolesApi/UpdateRole';
   static getUsersForRole = Urls.baseUrl + 'RolesApi/GetUsersList';
   static getUserById = Urls.baseUrl + 'RolesApi/GetUser?id=';
+  static addUserAccess = Urls.baseUrl + 'LoginApi/Register';
   static getQuickCampaignList = Urls.baseUrl + 'QuickCampaignApi/GetAllQuickCampaigns';
   static addQuickCampaign = Urls.baseUrl + 'QuickCampaignApi/InsertQuickCampaign';
   static emailTemplateList = Urls.baseUrl + 'TemplateApi/GetAllTemplates';

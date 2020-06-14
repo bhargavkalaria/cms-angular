@@ -49,11 +49,17 @@ export class UpdateRoleComponent implements OnInit {
       addUserAccess: [null],
       hasReportAccess: [null]
     });
-    this.activatedRoute.paramMap.subscribe(parameterMap => {
-      this.userId = this.activatedRoute.snapshot.params.id;
-      console.log(this.userId);
-    });
-    this.roleService.getUserById(this.userId).subscribe((res) => {
+    this.userId = this.activatedRoute.snapshot.params.id;
+    if (this.userId) {
+      this.getUserById();
+    } else {
+      this.isLoading = false;
+    }
+  }
+
+  getUserById() {
+    this.roleService.getUserById(this.userId).then((res: UserModel) => {
+      this.isLoading = false;
       this.userForm.setValue({
         UId: res.UId,
         FName: res.FName,
@@ -78,15 +84,14 @@ export class UpdateRoleComponent implements OnInit {
       });
       this.fullName = res.FName + ' ' + res.LName;
       this.role = res.Role;
+    }).catch(error => {
+      console.log(error);
     });
   }
 
   updateAccess() {
-
-    console.log('Edit Access Called');
-    console.log(this.userForm.value);
     this.roleService.updateAccess(this.userForm.value).then(role => {
-      this.router.navigate(['dashboard', 'roles-list']);
+      this.router.navigate(['dashboard', 'roles']);
       this.notificationService.createNotification(
         this.notificationService.notificationSuccess,
         Constant.editAccessSuccessShortMessage,
@@ -100,5 +105,4 @@ export class UpdateRoleComponent implements OnInit {
       );
     });
   }
-
 }

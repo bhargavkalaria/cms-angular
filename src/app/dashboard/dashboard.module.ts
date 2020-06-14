@@ -23,6 +23,13 @@ import {DashboardService} from '../services/dashboard.service';
 import {ChartsModule} from 'ng2-charts';
 import {CampaignService} from '../services/campaign.service';
 import {CKEditorModule} from 'ckeditor4-angular';
+import {BrandService} from '../services/brand.service';
+import {EmailTemplateService} from '../services/email-template.service';
+import {QuickCampaignService} from '../services/quick-campaign.service';
+import {ReportService} from '../services/report.service';
+import {RoleService} from '../services/role.service';
+import {UploadService} from '../services/upload.service';
+import {AccessGuard} from '../guards/access.guard';
 
 @NgModule({
   declarations: [
@@ -50,11 +57,18 @@ import {CKEditorModule} from 'ckeditor4-angular';
     DashboardRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    CKEditorModule
+    CKEditorModule,
   ],
   providers: [
+    AccessGuard,
     DashboardService,
     CampaignService,
+    BrandService,
+    EmailTemplateService,
+    QuickCampaignService,
+    ReportService,
+    RoleService,
+    UploadService
   ],
 })
 export class DashboardModule {

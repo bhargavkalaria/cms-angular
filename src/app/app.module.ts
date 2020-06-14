@@ -20,6 +20,8 @@ import {UserService} from './services/user.service';
 import {ResponsesComponent} from './components/responses/responses.component';
 import {NotificationService} from './services/notification.service';
 import {EncryptDecryptService} from './services/encrypt-decrypt.service';
+import {UnauthorizeComponent} from './components/unauthorize/unauthorize.component';
+import {AuthGuard} from './guards/auth.guard';
 
 registerLocaleData(en);
 const ngZorroConfig: NzConfig = {
@@ -31,6 +33,7 @@ const ngZorroConfig: NzConfig = {
     AppComponent,
     LoginComponent,
     ResponsesComponent,
+    UnauthorizeComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,7 @@ const ngZorroConfig: NzConfig = {
     ReactiveFormsModule
   ],
   providers: [
+    AuthGuard,
     {
       provide: NZ_I18N, useValue: en_US
     },

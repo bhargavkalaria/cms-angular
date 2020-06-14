@@ -1,63 +1,55 @@
-<ng-template [ngIf]="!isLoading">
-  <form nz-form [nzLayout]="'inline'" [formGroup]="reportForm" (ngSubmit)="Search()">
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Please select Campaign!">
-        <nz-select nzAllowClear nzPlaceHolder="Select a Campaign" formControlName="campaignType"
-                   (ngModelChange)="dataChanged($event)">
-          <nz-option nzLabel="Campaign" nzValue="campaign"></nz-option>
-          <nz-option nzLabel="Quick-Campaign" nzValue="quick-campaign"></nz-option>
-        </nz-select>
+<form nz-form [nzLayout]="'inline'" [formGroup]="reportForm" (ngSubmit)="Search()">
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please select Campaign!">
+      <nz-select nzAllowClear nzPlaceHolder="Select a Campaign" formControlName="campaignType"
+                 (ngModelChange)="dataChanged($event)">
+        <nz-option nzLabel="Campaign" nzValue="campaign"></nz-option>
+        <nz-option nzLabel="Quick-Campaign" nzValue="quick-campaign"></nz-option>
+      </nz-select>
 
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Please enter Campaign Name!">
-        <input placeholder="Enter Campaign name here" nz-input *ngIf="List.length > 0" [nzAutocomplete]="auto"
-               formControlName="CId"/>
-        <nz-autocomplete [nzBackfill] #auto>
-          <nz-auto-option *ngFor="let option of List" [nzValue]="option.CampaignId"
-                          [nzLabel]="option.CampaignName">
-            {{ option.CampaignName }}
-          </nz-auto-option>
-        </nz-autocomplete>
-      </nz-form-control>
-    </nz-form-item>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please enter Campaign Name!">
+      <input placeholder="Enter Campaign name here" nz-input *ngIf="List.length > 0" [nzAutocomplete]="auto"
+             formControlName="CId" (ngModelChange)="onChange($event,'campaign')"/>
+      <nz-autocomplete [nzBackfill] #auto>
+        <nz-auto-option *ngFor="let option of filteredOptions" [nzValue]="option.CampaignId"
+                        [nzLabel]="option.CampaignName">
+          {{ option.CampaignName }}
+        </nz-auto-option>
+      </nz-autocomplete>
+    </nz-form-control>
+  </nz-form-item>
 
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Please enter Quick-Campaign Name!">
-        <input placeholder="Enter Quick-Campaign name here" *ngIf="quickList.length > 0" nz-input
-               [nzAutocomplete]="auto1" formControlName="CId"/>
-        <nz-autocomplete [nzBackfill] #auto1>
-          <nz-auto-option *ngFor="let data of quickList" [nzValue]="data.QuickCampaignId"
-                          [nzLabel]="data.QuickCampaignName">
-            {{ data.QuickCampaignName }}
-          </nz-auto-option>
-        </nz-autocomplete>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Please input your Password!">
-        <nz-range-picker [nzFormat]="dateFormat" formControlName="range"></nz-range-picker>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control>
-        <button nz-button nzType="primary" [disabled]="!reportForm.valid">Search</button>
-      </nz-form-control>
-    </nz-form-item>
-  </form>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please enter Quick-Campaign Name!">
+      <input placeholder="Enter Quick-Campaign name here" *ngIf="quickList.length > 0" nz-input
+             [nzAutocomplete]="auto1" formControlName="CId" (ngModelChange)="onChange($event,'quick-campaign')"/>
+      <nz-autocomplete [nzBackfill] #auto1>
+        <nz-auto-option *ngFor="let data of filteredOptions" [nzValue]="data.QuickCampaignId"
+                        [nzLabel]="data.QuickCampaignName">
+          {{ data.QuickCampaignName }}
+        </nz-auto-option>
+      </nz-autocomplete>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your Password!">
+      <nz-range-picker [nzFormat]="dateFormat" formControlName="range"></nz-range-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button nzType="primary" [disabled]="!reportForm.valid">Search</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
 
-  <div class="chart-design" *ngIf="reportData.length > 0">
-    <div style="display: block;">
-      <canvas baseChart height="300" width="400" [datasets]="chartReportData" [labels]="chartReportLabel"
-              [legend]="true" [options]="chartReportOptions" [chartType]="'bar'">
-      </canvas>
-    </div>
+<div class="chart-design" *ngIf="reportData.length > 0">
+  <div style="display: block;">
+    <canvas baseChart height="300" width="400" [datasets]="chartReportData" [labels]="chartReportLabel"
+            [legend]="true" [options]="chartReportOptions" [chartType]="'bar'">
+    </canvas>
   </div>
-</ng-template>
-
-<ng-template [ngIf]="isLoading">
-  <div class="dashboard-loader">
-    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
-  </div>
-</ng-template>
+</div>

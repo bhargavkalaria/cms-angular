@@ -4,6 +4,7 @@ import {TemplateModel} from '../../../models/templateModel';
 import {CampaignModel} from '../../../models/campaignModel';
 import {Constant} from '../../../utils/constant';
 import {NotificationService} from '../../../services/notification.service';
+import {UserService} from '../../../services/user.service';
 
 @Component({
   selector: 'app-email-list',
@@ -21,7 +22,8 @@ export class EmailListComponent implements OnInit {
   modalBody;
 
   constructor(private emailTemplateService: EmailTemplateService,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              public userService: UserService) {
   }
 
   ngOnInit(): void {

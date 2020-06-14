@@ -3,6 +3,8 @@ import {Routes, RouterModule} from '@angular/router';
 import {LoginComponent} from './components/login/login.component';
 import {ResponsesComponent} from './components/responses/responses.component';
 import {AuthGuard} from './guards/auth.guard';
+import {UnauthorizeComponent} from './components/unauthorize/unauthorize.component';
+import {RegisterUserGuard} from './guards/register-user.guard';
 
 const routes: Routes = [
   {
@@ -16,7 +18,8 @@ const routes: Routes = [
   },
   {
     path: 'register-user',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [RegisterUserGuard]
   },
   {
     path: 'forgot-password',
@@ -31,9 +34,13 @@ const routes: Routes = [
     component: ResponsesComponent
   },
   {
+    path: 'unauthorized',
+    component: UnauthorizeComponent
+  },
+  {
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: '**',

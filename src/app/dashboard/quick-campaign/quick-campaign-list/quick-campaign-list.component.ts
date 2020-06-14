@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {QuickCampaignService} from '../../../services/quick-campaign.service';
 import {QuickCampaignModel} from '../../../models/quickCampaignModel';
+import {UserService} from '../../../services/user.service';
 
 @Component({
   selector: 'app-quick-campaign-list',
@@ -14,7 +15,8 @@ export class QuickCampaignListComponent implements OnInit {
   visible = false;
   searchValue = '';
 
-  constructor(private quickCampaignService: QuickCampaignService) {
+  constructor(private quickCampaignService: QuickCampaignService,
+              public userService: UserService) {
   }
 
   ngOnInit(): void {

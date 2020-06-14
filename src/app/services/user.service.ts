@@ -10,6 +10,7 @@ import {EncryptDecryptService} from './encrypt-decrypt.service';
 })
 export class UserService {
   isLoading = false;
+  userDetails: UserModel;
 
   constructor(private router: Router, private http: HttpClient, private encryptDecryptService: EncryptDecryptService) {
   }
@@ -83,9 +84,11 @@ export class UserService {
   checkRoles() {
     if (this.getIsRemember()) {
       const userData: UserModel = this.encryptDecryptService.decrypt(localStorage.getItem('userDetails'));
+      this.userDetails = userData;
       return userData.Role;
     } else {
       const userData: UserModel = this.encryptDecryptService.decrypt(sessionStorage.getItem('userDetails'));
+      this.userDetails = userData;
       return userData.Role;
     }
   }

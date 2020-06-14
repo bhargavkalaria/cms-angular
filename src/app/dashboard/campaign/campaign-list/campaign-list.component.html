@@ -1,5 +1,5 @@
 <ng-template [ngIf]="!isLoading">
-  <div class="add-campaign-button">
+  <div class="add-campaign-button" *ngIf="userService.userDetails.addCampaignAccess">
     <button nz-button nzType="primary" routerLink="../campaign/create"><i nz-icon nzType="plus" nzTheme="outline"></i>Create
       Campaign
     </button>
@@ -16,7 +16,10 @@
       <th>Status</th>
       <th>Start date</th>
       <th>End date</th>
-      <th>Actions</th>
+      <th
+        *ngIf="userService.userDetails.viewCampaignAccess || userService.userDetails.deleteCampainAccess|| userService.userDetails.editCampaignAccess">
+        Actions
+      </th>
     </tr>
     </thead>
     <tbody>
@@ -25,12 +28,14 @@
       <td>{{ data.CampaignStatus.Status }}</td>
       <td>{{ data.Start_Date | date}}</td>
       <td>{{ data.End_Date | date}}</td>
-      <td>
-        <i *ngIf="data.CampaignStatus.Status !== 'Completed'" nz-icon nzType="edit" nzTheme="outline"
+      <td *ngIf="userService.userDetails.viewCampaignAccess || userService.userDetails.deleteCampainAccess|| userService.userDetails.editCampaignAccess">
+        <i *ngIf="data.CampaignStatus.Status !== 'Completed' && userService.userDetails.editCampaignAccess" nz-icon
+           nzType="edit" nzTheme="outline"
            class="cursor-pointer" nzTooltipTitle="Edit" nzTooltipPlacement="top"
            nz-button nz-tooltip routerLink="../campaign/edit/{{data.CampaignId}}"></i>
         {{'    '}}
         <i nz-icon nzType="delete" nzTheme="outline"
+           *ngIf="userService.userDetails.deleteCampainAccess"
            class="cursor-pointer" nzTooltipTitle="Delete"
            nzTooltipPlacement="top" nz-button nz-tooltip nz-popconfirm
            nzPopconfirmTitle="Are you sure delete campaign {{data.CampaignName}}"
@@ -39,6 +44,7 @@
         {{'    '}}
         <i nz-icon nzType="eye" nzTheme="outline" class="cursor-pointer" nzTooltipTitle="Details"
            nzTooltipPlacement="top"
+           *ngIf="userService.userDetails.viewCampaignAccess"
            nz-button nz-tooltip routerLink="../campaign-list/detail/{{data.CampaignId}}"></i>
       </td>
     </tr>

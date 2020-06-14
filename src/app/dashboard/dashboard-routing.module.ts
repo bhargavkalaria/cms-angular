@@ -16,11 +16,13 @@ import {AddQuickCampaignComponent} from './quick-campaign/add-quick-campaign/add
 import {UpdateRoleComponent} from './roles/update-role/update-role.component';
 import {RolesListComponent} from './roles/roles-list/roles-list.component';
 import {UploadSpreadsheetComponent} from './upload-spreadsheet/upload-spreadsheet.component';
+import {AccessGuard} from '../guards/access.guard';
 
 const dashboardRoutes: Routes = [
   {
     path: '',
     component: DashboardComponent,
+    canActivateChild: [AccessGuard],
     children: [
       {
         path: '',
@@ -36,7 +38,7 @@ const dashboardRoutes: Routes = [
         component: BrandListComponent
       },
       {
-        path: 'brand',
+        path: 'brand-list/create',
         component: BrandAddEditComponent
       },
       {
@@ -84,15 +86,15 @@ const dashboardRoutes: Routes = [
         component: QuickCampaignListComponent
       },
       {
-        path: 'add-quick-campaign',
+        path: 'quick-campaign-list/create',
         component: AddQuickCampaignComponent
       },
       {
-        path: 'update-role/:id',
+        path: 'roles/edit/:id',
         component: UpdateRoleComponent
       },
       {
-        path: 'roles-list',
+        path: 'roles',
         component: RolesListComponent
       },
       {
