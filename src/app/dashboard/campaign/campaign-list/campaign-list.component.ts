@@ -4,6 +4,17 @@ import {NotificationService} from '../../../services/notification.service';
 import {Constant} from '../../../utils/constant';
 import {CampaignModel} from '../../../models/campaignModel';
 import {UserService} from '../../../services/user.service';
+import {NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder} from 'ng-zorro-antd';
+
+interface ColumnItem {
+  name: string;
+  sortOrder?: NzTableSortOrder;
+  sortFn?: NzTableSortFn;
+  listOfFilter?: NzTableFilterList;
+  filterFn?: NzTableFilterFn;
+  filterMultiple?: boolean;
+  sortDirections?: NzTableSortOrder[];
+}
 
 @Component({
   selector: 'app-campaign-list',
@@ -69,5 +80,33 @@ export class CampaignListComponent implements OnInit {
         Constant.somethingWentWrong
       );
     });
+  }
+
+  sortByDate(e, type) {
+    if (type === 'startDate') {
+      this.listOfDisplayData.sort((a: CampaignModel, b: CampaignModel) => {
+        if (e) {
+          const dateA: any = new Date(a.Start_Date);
+          const dateB: any = new Date(b.Start_Date);
+          if (e === 'ascend') {
+            return (dateA - dateB);
+          } else if (e === 'descend') {
+            return (dateB - dateA);
+          }
+        }
+      });
+    } else {
+      this.listOfDisplayData.sort((a: CampaignModel, b: CampaignModel) => {
+        if (e) {
+          const dateA: any = new Date(a.End_Date);
+          const dateB: any = new Date(b.End_Date);
+          if (e === 'ascend') {
+            return (dateA - dateB);
+          } else if (e === 'descend') {
+            return (dateB - dateA);
+          }
+        }
+      });
+    }
   }
 }

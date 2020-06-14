@@ -15,7 +15,6 @@ export class AccessGuard implements CanActivateChild {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const userDetails: UserModel = this.userService.getUserDetails();
-    console.log(state);
     if (state.url.indexOf('/dashboard/campaign') !== -1) {
       if (userDetails.viewCampaignAccess) {
         return true;

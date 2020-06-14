@@ -13,7 +13,10 @@ import {UserService} from '../../../services/user.service';
 })
 export class BrandListComponent implements OnInit {
   isLoading = true;
-  public brandList: BrandModel[];
+  brandList: BrandModel[];
+  listOfDisplayData: BrandModel[];
+  searchValue = '';
+  visible = false;
 
   constructor(private router: Router,
               private brandService: BrandService,
@@ -25,6 +28,7 @@ export class BrandListComponent implements OnInit {
   ngOnInit(): void {
     this.brandService.getBrands().then((result: any) => {
       this.brandList = result;
+      this.listOfDisplayData = [...this.brandList];
       this.isLoading = false;
     }).catch(error => {
       this.notification.createNotification(this.notification.notificationError,
@@ -51,5 +55,13 @@ export class BrandListComponent implements OnInit {
     });
   }
 
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
 
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.brandList.filter((item) => item.BrandName.toLowerCase().indexOf(this.searchValue) !== -1);
+  }
 }

@@ -2,16 +2,20 @@
   <div class="add-brand-button" *ngIf="userService.userDetails.addBrandAccess">
     <button nz-button nzType='primary' (click)="Add()">Add Brands</button>
   </div>
-  <nz-table #sortTable [nzData]="brandList" nzTableLayout="fixed">
+  <nz-table #sortTable [nzData]="listOfDisplayData" nzTableLayout="fixed">
     <thead>
     <tr>
       <th>Id</th>
-      <th>Brand</th>
+      <th>Brand
+        <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+          <i nz-icon nzType="search"></i>
+        </nz-filter-trigger>
+      </th>
       <th *ngIf="userService.userDetails.editBrandAccess || userService.userDetails.deleteBrandAccess">Action</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let data of brandList; index as i">
+    <tr *ngFor="let data of sortTable.data; index as i">
       <td>{{ i + 1 }}</td>
       <td>{{ data.BrandName }}</td>
       <td *ngIf="userService.userDetails.editBrandAccess || userService.userDetails.deleteBrandAccess">
@@ -29,6 +33,17 @@
     </tr>
     </tbody>
   </nz-table>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue"/>
+        <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+          Search
+        </button>
+        <button nz-button nzSize="small" (click)="reset()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
 </ng-template>
 <ng-template [ngIf]="isLoading">
   <div class="dashboard-loader">

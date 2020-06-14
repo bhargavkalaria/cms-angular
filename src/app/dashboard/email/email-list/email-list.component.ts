@@ -5,6 +5,7 @@ import {CampaignModel} from '../../../models/campaignModel';
 import {Constant} from '../../../utils/constant';
 import {NotificationService} from '../../../services/notification.service';
 import {UserService} from '../../../services/user.service';
+import {QuickCampaignModel} from '../../../models/quickCampaignModel';
 
 @Component({
   selector: 'app-email-list',
@@ -32,7 +33,6 @@ export class EmailListComponent implements OnInit {
 
   getAllEmailList() {
     this.emailTemplateService.getEmailTemplate().then((email: any) => {
-      console.log(email);
       this.isLoading = false;
       this.emailList = [...email];
       this.listOfDisplayData = [...this.emailList];
@@ -80,4 +80,33 @@ export class EmailListComponent implements OnInit {
   hideModal() {
     this.isEmailTemplateModalVisible = false;
   }
+
+  sortByDate(e, type) {
+    if (type === 'lastUpdated') {
+      this.listOfDisplayData.sort((a: TemplateModel, b: TemplateModel) => {
+        if (e) {
+          const dateA: any = new Date(a.LastUpdated);
+          const dateB: any = new Date(b.LastUpdated);
+          if (e === 'ascend') {
+            return (dateA - dateB);
+          } else if (e === 'descend') {
+            return (dateB - dateA);
+          }
+        }
+      });
+    } else {
+      this.listOfDisplayData.sort((a: TemplateModel, b: TemplateModel) => {
+        if (e) {
+          const dateA: any = new Date(a.CreatedDate);
+          const dateB: any = new Date(b.CreatedDate);
+          if (e === 'ascend') {
+            return (dateA - dateB);
+          } else if (e === 'descend') {
+            return (dateB - dateA);
+          }
+        }
+      });
+    }
+  }
+
 }

@@ -73,7 +73,6 @@ export class DataReportComponent implements OnInit {
     if (this.reportForm.controls[Constant.campaignType].value === Constant.reportCampaign
       && this.startDate != null && this.endDate != null) {
       this.reportService.GetCampaignReportByDate(this.startDate, this.endDate).then((res: any) => {
-        console.log(res);
         this.reportData.length = 0;
         this.reportData = res;
         this.listOfDisplayData = this.reportData;
@@ -86,7 +85,6 @@ export class DataReportComponent implements OnInit {
     if (this.reportForm.controls[Constant.campaignType].value === Constant.reportQuickCampaign
       && this.startDate != null && this.endDate != null) {
       this.reportService.GetQuickCampaignReportByDate(this.startDate, this.endDate).then((res: any) => {
-        console.log(res);
         this.reportData.length = 0;
         this.reportData = res;
         this.listOfDisplayData = this.reportData;
@@ -99,7 +97,6 @@ export class DataReportComponent implements OnInit {
     if (this.reportForm.controls[Constant.campaignType].value === Constant.reportCampaign
       && this.reportForm.controls[Constant.reportCampaignId].value != null) {
       this.reportService.GetCampaignReportById(this.reportForm.controls.CId.value).then((res: any) => {
-        console.log(res);
         this.reportData.length = 0;
         this.reportData.push(res);
         this.listOfDisplayData = this.reportData;
@@ -113,7 +110,6 @@ export class DataReportComponent implements OnInit {
     if (this.reportForm.controls[Constant.campaignType].value === Constant.reportQuickCampaign
       && this.reportForm.controls[Constant.reportCampaignId].value != null) {
       this.reportService.GetQuickCampaignReportById(this.reportForm.controls.CId.value).then((res: any) => {
-        console.log(res);
         this.reportData.length = 0;
         this.reportData.push(res);
         this.listOfDisplayData = this.reportData;
@@ -140,7 +136,6 @@ export class DataReportComponent implements OnInit {
       && this.startDate == null && this.endDate == null
       && this.reportForm.controls[Constant.reportCampaignId].value == null) {
       this.reportService.GetQuickCampaignReportByType().then((res: any) => {
-        console.log(res);
         this.reportData.length = 0;
         this.reportData = res;
         this.listOfDisplayData = this.reportData;

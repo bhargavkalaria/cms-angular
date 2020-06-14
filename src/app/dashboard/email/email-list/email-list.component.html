@@ -14,8 +14,8 @@
           <i nz-icon nzType="search"></i>
         </nz-filter-trigger>
       </th>
-      <th>Last updated</th>
-      <th>Created at</th>
+      <th [nzSortFn]="true" (nzSortChange)="sortByDate($event,'lastUpdated')">Last updated</th>
+      <th [nzSortFn]="true" (nzSortChange)="sortByDate($event,'createdAt')">Created at</th>
       <th
         *ngIf="userService.userDetails.editTemplateAccess || userService.userDetails.deleteTemplateAccess || userService.userDetails.viewTemplateAccess">
         Actions

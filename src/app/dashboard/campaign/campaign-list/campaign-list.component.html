@@ -14,8 +14,8 @@
         </nz-filter-trigger>
       </th>
       <th>Status</th>
-      <th>Start date</th>
-      <th>End date</th>
+      <th [nzSortFn]="true" (nzSortChange)="sortByDate($event,'startDate')">Start date</th>
+      <th [nzSortFn]="true" (nzSortChange)="sortByDate($event,'endDate')">End date</th>
       <th
         *ngIf="userService.userDetails.viewCampaignAccess || userService.userDetails.deleteCampainAccess|| userService.userDetails.editCampaignAccess">
         Actions
@@ -28,7 +28,8 @@
       <td>{{ data.CampaignStatus.Status }}</td>
       <td>{{ data.Start_Date | date}}</td>
       <td>{{ data.End_Date | date}}</td>
-      <td *ngIf="userService.userDetails.viewCampaignAccess || userService.userDetails.deleteCampainAccess|| userService.userDetails.editCampaignAccess">
+      <td
+        *ngIf="userService.userDetails.viewCampaignAccess || userService.userDetails.deleteCampainAccess|| userService.userDetails.editCampaignAccess">
         <i *ngIf="data.CampaignStatus.Status !== 'Completed' && userService.userDetails.editCampaignAccess" nz-icon
            nzType="edit" nzTheme="outline"
            class="cursor-pointer" nzTooltipTitle="Edit" nzTooltipPlacement="top"

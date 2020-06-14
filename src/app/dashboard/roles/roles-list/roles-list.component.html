@@ -1,17 +1,19 @@
 <ng-template [ngIf]="!isLoading">
-  <nz-table [nzData]="userList">
+  <nz-table [nzData]="listOfDisplayData" #basicTable>
     <thead>
     <tr>
-      <th>User Id</th>
-      <th>First Name</th>
+      <th>First Name
+        <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+          <i nz-icon nzType="search"></i>
+        </nz-filter-trigger>
+      </th>
       <th>Last Name</th>
       <th>Role</th>
       <th>Edit Access</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let item of userList">
-      <td>{{item.UId}}</td>
+    <tr *ngFor="let item of basicTable.data">
       <td>{{item.FName}}</td>
       <td>{{item.LName}}</td>
       <td>{{item.Role}}</td>
@@ -23,6 +25,17 @@
     </tr>
     </tbody>
   </nz-table>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue"/>
+        <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+          Search
+        </button>
+        <button nz-button nzSize="small" (click)="reset()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
 </ng-template>
 <ng-template [ngIf]="isLoading">
   <div class="dashboard-loader">

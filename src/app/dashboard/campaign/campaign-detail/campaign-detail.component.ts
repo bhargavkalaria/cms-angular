@@ -44,7 +44,6 @@ export class CampaignDetailComponent implements OnInit {
 
   getCampaignDetail() {
     this.campaignService.detailCampaign(this.editCampaignId).then((campaign: any) => {
-      console.log(campaign);
       this.campaignDetails = campaign;
       this.topThreeCampaignData[0].data.push(campaign.Positive);
       this.topThreeCampaignData[1].data.push(campaign.Negative);

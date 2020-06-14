@@ -37,7 +37,6 @@ export class BrandService {
       return this.httpClient.post(Urls.addBrand, data)
         .subscribe((res: any) => {
           resolve(res);
-          console.log(res);
         }, err => {
           reject(err);
           console.log(err);
@@ -49,7 +48,6 @@ export class BrandService {
     return new Promise((resolve, reject) => {
       return this.httpClient.put(Urls.updateBrand, data).subscribe((res: any) => {
         resolve(res);
-        console.log(res);
       }, err => {
         reject(err);
         console.log(err);

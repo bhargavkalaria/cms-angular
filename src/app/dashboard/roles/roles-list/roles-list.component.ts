@@ -9,8 +9,10 @@ import {UserModel} from '../../../models/userModel';
 })
 export class RolesListComponent implements OnInit {
     isLoading = true;
-
+    searchValue = '';
+    visible = false;
     userList: UserModel[];
+    listOfDisplayData: UserModel[];
 
     constructor(private roleService: RoleService) {
     }
@@ -18,10 +20,20 @@ export class RolesListComponent implements OnInit {
     ngOnInit(): void {
         this.roleService.getUsers().then(res => {
             this.userList = res as UserModel[];
+            this.listOfDisplayData = [...this.userList];
             this.isLoading = false;
         }).catch(error => {
             console.log(error);
         });
     }
 
+    reset(): void {
+        this.searchValue = '';
+        this.search();
+    }
+
+    search(): void {
+        this.visible = false;
+        this.listOfDisplayData = this.userList.filter((item) => item.FName.toLowerCase().indexOf(this.searchValue) !== -1);
+    }
 }

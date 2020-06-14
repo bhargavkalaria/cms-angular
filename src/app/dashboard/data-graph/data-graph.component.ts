@@ -82,7 +82,6 @@ export class DataGraphComponent implements OnInit {
   }
 
   dataChanged(data) {
-    console.log(data);
     this.isLoading = true;
     this.List.length = 0;
     this.quickList.length = 0;
@@ -115,7 +114,6 @@ export class DataGraphComponent implements OnInit {
     if (this.reportForm.controls[Constant.campaignType].value === Constant.reportCampaign
       && this.startDate != null && this.endDate != null) {
       this.reportService.GetCampaignReportByDate(this.startDate, this.endDate).then((res: any) => {
-        console.log(res);
         this.reportData.length = 0;
         this.reportData = res;
         this.generateReportChart(res);
@@ -128,7 +126,6 @@ export class DataGraphComponent implements OnInit {
     if (this.reportForm.controls[Constant.campaignType].value === Constant.reportQuickCampaign
       && this.startDate != null && this.endDate != null) {
       this.reportService.GetQuickCampaignReportByDate(this.startDate, this.endDate).then((res: any) => {
-        console.log(res);
         this.isLoading = false;
         this.reportData.length = 0;
         this.reportData = res;
@@ -142,7 +139,6 @@ export class DataGraphComponent implements OnInit {
     if (this.reportForm.controls[Constant.campaignType].value === Constant.reportCampaign
       && this.reportForm.controls[Constant.reportCampaignId].value != null) {
       this.reportService.GetCampaignReportById(this.reportForm.controls[Constant.reportCampaignId].value).then((res: any) => {
-        console.log(res);
         this.reportData.length = 0;
         this.reportData.push(res);
         this.generateReportChart(this.reportData);
@@ -156,7 +152,6 @@ export class DataGraphComponent implements OnInit {
     if (this.reportForm.controls[Constant.campaignType].value === Constant.reportQuickCampaign
       && this.reportForm.controls[Constant.reportCampaignId].value != null) {
       this.reportService.GetQuickCampaignReportById(this.reportForm.controls[Constant.reportCampaignId].value).then((res: any) => {
-        console.log(res);
         this.reportData.length = 0;
         this.reportData.push(res);
         this.generateReportChart(this.reportData);
@@ -170,7 +165,6 @@ export class DataGraphComponent implements OnInit {
       && this.startDate == null && this.endDate == null
       && this.reportForm.controls[Constant.reportCampaignId].value == null) {
       this.reportService.GetCampaignReportByType().then((res: any) => {
-        console.log(res);
         this.reportData.length = 0;
         this.reportData = res;
         this.generateReportChart(res);
@@ -184,7 +178,6 @@ export class DataGraphComponent implements OnInit {
       && this.startDate == null && this.endDate == null
       && this.reportForm.controls[Constant.reportCampaignId].value == null) {
       this.reportService.GetQuickCampaignReportByType().then((res: any) => {
-        console.log(res);
         this.reportData.length = 0;
         this.reportData = res;
         this.generateReportChart(res);

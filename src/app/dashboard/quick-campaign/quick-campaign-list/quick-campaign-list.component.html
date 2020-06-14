@@ -14,9 +14,9 @@
           <i nz-icon nzType="search"></i>
         </nz-filter-trigger>
       </th>
-      <th>Start date</th>
-      <th>Created on</th>
-      <th>Campaign Budget</th>
+      <th  [nzSortFn]="true" (nzSortChange)="sortByDate($event,'startDate')">Start date</th>
+      <th [nzSortFn]="true" (nzSortChange)="sortByDate($event,'createdOn')">Created on</th>
+      <th [nzSortFn]="true" (nzSortChange)="sortByBudget($event)">Campaign Budget</th>
       <th>Expected Revenue</th>
     </tr>
     </thead>
