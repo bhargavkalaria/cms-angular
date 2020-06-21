@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ReportService} from '../../services/report.service';
 import {Constant} from '../../utils/constant';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-data-report',
@@ -24,6 +25,7 @@ export class DataReportComponent implements OnInit {
   visible = false;
   listOfDisplayData = [];
   filteredOptions = [];
+  @ViewChild('dummyData', {static: false}) excelData: ElementRef;
 
   constructor(private router: Router,
               private formBuilder: FormBuilder,
@@ -198,5 +200,13 @@ export class DataReportComponent implements OnInit {
         this.filteredOptions = [];
       }
     }
+  }
+
+  downloadExcel() {
+    const ws: XLSX.WorkSheet =
+      XLSX.utils.table_to_sheet(this.excelData.nativeElement);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Customers');
+    XLSX.writeFile(wb, 'Campaign.xlsx');
   }
 }

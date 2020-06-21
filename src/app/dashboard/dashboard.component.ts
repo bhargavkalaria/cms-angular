@@ -35,7 +35,7 @@ export class DashboardComponent implements OnInit {
     this.userService.getUserDataOnChange.subscribe((res: UserModel) => {
       this.userService.getUser(res.Email).then((result: UserModel) => {
         this.userService.isLoading = false;
-        this.userService.setUserData(result, this.userService.getIsRemember());
+        this.userService.setUserData(result, this.userService.getIsRemember(), 'dashboard');
       }).catch(error => {
         console.log(error);
       });

@@ -1,49 +1,62 @@
 <ng-template [ngIf]="!isLoading">
   <div class="add-brand-button" *ngIf="userService.userDetails.addBrandAccess">
+    <button class="mr-5" nz-button nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomRight"
+            [nzDisabled]="listOfDisplayData.length < 1">
+      Download<i nz-icon nzType="download" nzTheme="outline"></i>
+    </button>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item (click)="downloadPDF()">Download PDF</li>
+        <li nz-menu-item (click)="downloadExcel()">Download Excel</li>
+      </ul>
+    </nz-dropdown-menu>
     <button nz-button nzType='primary' (click)="Add()">Add Brands</button>
   </div>
-  <nz-table #sortTable [nzData]="listOfDisplayData" nzTableLayout="fixed">
-    <thead>
-    <tr>
-      <th>Id</th>
-      <th>Brand
-        <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
-          <i nz-icon nzType="search"></i>
-        </nz-filter-trigger>
-      </th>
-      <th *ngIf="userService.userDetails.editBrandAccess || userService.userDetails.deleteBrandAccess">Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let data of sortTable.data; index as i">
-      <td>{{ i + 1 }}</td>
-      <td>{{ data.BrandName }}</td>
-      <td *ngIf="userService.userDetails.editBrandAccess || userService.userDetails.deleteBrandAccess">
-        <i *ngIf="userService.userDetails.editBrandAccess" nz-icon nzType="edit" nzTheme="outline"
-           class="cursor-pointer" nzTooltipTitle="Edit" nzTooltipPlacement="top"
-           nz-button nz-tooltip (click)="Edit(data)"></i>
-        {{'   '}}
-        <i nz-icon nzType="delete" nzTheme="outline" class="cursor-pointer" nzTooltipTitle="Delete"
-           nzTooltipPlacement="top" nz-button nz-tooltip nz-popconfirm
-           *ngIf="userService.userDetails.deleteBrandAccess"
-           nzPopconfirmTitle="Are you sure delete campaign {{data.BrandName}}"
-           (nzOnConfirm)="delete(data)"
-           nzPopconfirmPlacement="rightTop"></i>
-      </td>
-    </tr>
-    </tbody>
-  </nz-table>
-  <nz-dropdown-menu #menu="nzDropdownMenu">
-    <div class="ant-table-filter-dropdown">
-      <div class="search-box">
-        <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue"/>
-        <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
-          Search
-        </button>
-        <button nz-button nzSize="small" (click)="reset()">Reset</button>
+  <div class="col-md-12 table-responsive" #dummyData>
+
+    <nz-table #sortTable [nzData]="listOfDisplayData" nzTableLayout="fixed">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Brand
+          <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+        </th>
+        <th *ngIf="userService.userDetails.editBrandAccess || userService.userDetails.deleteBrandAccess">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of sortTable.data; index as i">
+        <td>{{ i + 1 }}</td>
+        <td>{{ data.BrandName }}</td>
+        <td *ngIf="userService.userDetails.editBrandAccess || userService.userDetails.deleteBrandAccess">
+          <i *ngIf="userService.userDetails.editBrandAccess" nz-icon nzType="edit" nzTheme="outline"
+             class="cursor-pointer" nzTooltipTitle="Edit" nzTooltipPlacement="top"
+             nz-button nz-tooltip (click)="Edit(data)"></i>
+          {{'   '}}
+          <i nz-icon nzType="delete" nzTheme="outline" class="cursor-pointer" nzTooltipTitle="Delete"
+             nzTooltipPlacement="top" nz-button nz-tooltip nz-popconfirm
+             *ngIf="userService.userDetails.deleteBrandAccess"
+             nzPopconfirmTitle="Are you sure delete campaign {{data.BrandName}}"
+             (nzOnConfirm)="delete(data)"
+             nzPopconfirmPlacement="rightTop"></i>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <div class="ant-table-filter-dropdown">
+        <div class="search-box">
+          <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue"/>
+          <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+            Search
+          </button>
+          <button nz-button nzSize="small" (click)="reset()">Reset</button>
+        </div>
       </div>
-    </div>
-  </nz-dropdown-menu>
+    </nz-dropdown-menu>
+  </div>
 </ng-template>
 <ng-template [ngIf]="isLoading">
   <div class="dashboard-loader">

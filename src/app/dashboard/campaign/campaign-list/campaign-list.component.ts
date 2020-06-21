@@ -89,9 +89,9 @@ export class CampaignListComponent implements OnInit {
           const dateA: any = new Date(a.Start_Date);
           const dateB: any = new Date(b.Start_Date);
           if (e === 'ascend') {
-            return (dateA - dateB);
-          } else if (e === 'descend') {
             return (dateB - dateA);
+          } else if (e === 'descend') {
+            return (dateA - dateB);
           }
         }
       });
@@ -101,9 +101,9 @@ export class CampaignListComponent implements OnInit {
           const dateA: any = new Date(a.End_Date);
           const dateB: any = new Date(b.End_Date);
           if (e === 'ascend') {
-            return (dateA - dateB);
-          } else if (e === 'descend') {
             return (dateB - dateA);
+          } else if (e === 'descend') {
+            return (dateA - dateB);
           }
         }
       });

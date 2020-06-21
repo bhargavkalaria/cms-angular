@@ -45,42 +45,47 @@
       <button nz-button nzType="primary" (click)="Search()" [disabled]="!reportForm.valid">Search</button>
     </nz-form-control>
   </nz-form-item>
-  <nz-form-item>
-    <nz-form-control>
-      <button nz-button nzType="primary" (click)="downloadPDF()" [disabled]="listOfDisplayData.length < 1 ">Download
-        PDF
-      </button>
-    </nz-form-control>
-  </nz-form-item>
+  <button nz-button nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomRight"
+          [nzDisabled]="listOfDisplayData.length < 1">
+    Download<i nz-icon nzType="download" nzTheme="outline"></i>
+  </button>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item (click)="downloadPDF()">Download PDF</li>
+      <li nz-menu-item (click)="downloadExcel()">Download Excel</li>
+    </ul>
+  </nz-dropdown-menu>
 </form>
-<nz-table #basicTable [nzData]="listOfDisplayData" *ngIf="reportData.length >0 ">
-  <thead>
-  <tr>
-    <th nzCustomFilter>Campaign name
-      <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
-        <i nz-icon nzType="search"></i>
-      </nz-filter-trigger>
-    </th>
-    <th>Positive</th>
-    <th>Negative</th>
-    <th>Neutral</th>
-    <th>No response</th>
-    <th>Success percentage</th>
-    <th>Success/Fail</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let data of basicTable.data">
-    <td>{{data.CampaignName}}</td>
-    <td>{{data.Positive}}</td>
-    <td>{{data.Negative}}</td>
-    <td>{{data.Neutral}}</td>
-    <td>{{data.NoResponse}}</td>
-    <td>{{data.percentageFor }}%</td>
-    <td>{{data.successOrNot ? 'Success' : 'Fail'}}</td>
-  </tr>
-  </tbody>
-</nz-table>
+<div class="col-md-12 table-responsive" #dummyData>
+  <nz-table #basicTable [nzData]="listOfDisplayData" *ngIf="reportData.length >0 ">
+    <thead>
+    <tr>
+      <th nzCustomFilter>Campaign name
+        <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+          <i nz-icon nzType="search"></i>
+        </nz-filter-trigger>
+      </th>
+      <th>Positive</th>
+      <th>Negative</th>
+      <th>Neutral</th>
+      <th>No response</th>
+      <th>Success percentage</th>
+      <th>Success/Fail</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{data.CampaignName}}</td>
+      <td>{{data.Positive}}</td>
+      <td>{{data.Negative}}</td>
+      <td>{{data.Neutral}}</td>
+      <td>{{data.NoResponse}}</td>
+      <td>{{data.percentageFor }}%</td>
+      <td>{{data.successOrNot ? 'Success' : 'Fail'}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>
 <nz-dropdown-menu #menu="nzDropdownMenu">
   <div class="ant-table-filter-dropdown">
     <div class="search-box">

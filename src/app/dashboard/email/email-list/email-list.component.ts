@@ -88,9 +88,9 @@ export class EmailListComponent implements OnInit {
           const dateA: any = new Date(a.LastUpdated);
           const dateB: any = new Date(b.LastUpdated);
           if (e === 'ascend') {
-            return (dateA - dateB);
-          } else if (e === 'descend') {
             return (dateB - dateA);
+          } else if (e === 'descend') {
+            return (dateA - dateB);
           }
         }
       });
@@ -100,9 +100,9 @@ export class EmailListComponent implements OnInit {
           const dateA: any = new Date(a.CreatedDate);
           const dateB: any = new Date(b.CreatedDate);
           if (e === 'ascend') {
-            return (dateA - dateB);
-          } else if (e === 'descend') {
             return (dateB - dateA);
+          } else if (e === 'descend') {
+            return (dateA - dateB);
           }
         }
       });

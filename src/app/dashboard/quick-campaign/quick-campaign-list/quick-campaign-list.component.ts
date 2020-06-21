@@ -51,9 +51,9 @@ export class QuickCampaignListComponent implements OnInit {
           const dateA: any = new Date(a.Start_Date);
           const dateB: any = new Date(b.Start_Date);
           if (e === 'ascend') {
-            return (dateA - dateB);
-          } else if (e === 'descend') {
             return (dateB - dateA);
+          } else if (e === 'descend') {
+            return (dateA - dateB);
           }
         }
       });
@@ -63,9 +63,9 @@ export class QuickCampaignListComponent implements OnInit {
           const dateA: any = new Date(a.CreatedOn);
           const dateB: any = new Date(b.CreatedOn);
           if (e === 'ascend') {
-            return (dateA - dateB);
-          } else if (e === 'descend') {
             return (dateB - dateA);
+          } else if (e === 'descend') {
+            return (dateA - dateB);
           }
         }
       });
@@ -75,9 +75,9 @@ export class QuickCampaignListComponent implements OnInit {
   sortByBudget(e) {
     this.listOfDisplayData.sort((a, b) => {
       if (e === 'ascend') {
-        return a.CampaignBudget - b.CampaignBudget;
-      } else if (e === 'descend') {
         return b.CampaignBudget - a.CampaignBudget;
+      } else if (e === 'descend') {
+        return a.CampaignBudget - b.CampaignBudget;
       }
     });
   }

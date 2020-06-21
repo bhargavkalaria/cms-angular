@@ -138,7 +138,7 @@ export class UserService {
     }
   }
 
-  setUserData(userData, isRemember) {
+  setUserData(userData, isRemember, type?) {
     localStorage.setItem('isRemember', isRemember);
     if (isRemember) {
       this.userDetails = userData;
@@ -147,6 +147,8 @@ export class UserService {
       this.userDetails = userData;
       sessionStorage.setItem('userDetails', this.encryptDecryptService.encrypt(userData));
     }
-    this.router.navigate(['dashboard']);
+    if (type !== 'dashboard') {
+      this.router.navigate(['dashboard']);
+    }
   }
 }
