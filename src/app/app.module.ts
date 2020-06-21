@@ -22,6 +22,7 @@ import {NotificationService} from './services/notification.service';
 import {EncryptDecryptService} from './services/encrypt-decrypt.service';
 import {UnauthorizeComponent} from './components/unauthorize/unauthorize.component';
 import {AuthGuard} from './guards/auth.guard';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 registerLocaleData(en);
 const ngZorroConfig: NzConfig = {
@@ -34,6 +35,7 @@ const ngZorroConfig: NzConfig = {
     LoginComponent,
     ResponsesComponent,
     UnauthorizeComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

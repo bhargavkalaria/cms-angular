@@ -36,7 +36,7 @@
            nz-button nz-tooltip routerLink="../campaign/edit/{{data.CampaignId}}"></i>
         {{'    '}}
         <i nz-icon nzType="delete" nzTheme="outline"
-           *ngIf="userService.userDetails.deleteCampainAccess"
+           *ngIf="userService.userDetails.deleteCampainAccess && data.CampaignStatus.Status !== 'Completed'"
            class="cursor-pointer" nzTooltipTitle="Delete"
            nzTooltipPlacement="top" nz-button nz-tooltip nz-popconfirm
            nzPopconfirmTitle="Are you sure delete campaign {{data.CampaignName}}"

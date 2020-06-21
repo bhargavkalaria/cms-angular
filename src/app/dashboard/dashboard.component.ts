@@ -4,6 +4,7 @@ import {UserService} from '../services/user.service';
 import {Constant} from '../utils/constant';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NotificationService} from '../services/notification.service';
+import {UserModel} from '../models/userModel';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,7 +32,16 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.isLoading = false;
+    this.userService.getUserDataOnChange.subscribe((res: UserModel) => {
+      this.userService.getUser(res.Email).then((result: UserModel) => {
+        this.userService.isLoading = false;
+        this.userService.setUserData(result, this.userService.getIsRemember());
+      }).catch(error => {
+        console.log(error);
+      });
+    }, error => {
+      console.log(error);
+    });
     this.userName = this.userService.getUserName();
     this.role = this.userService.checkRoles();
   }

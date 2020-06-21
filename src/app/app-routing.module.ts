@@ -5,6 +5,7 @@ import {ResponsesComponent} from './components/responses/responses.component';
 import {AuthGuard} from './guards/auth.guard';
 import {UnauthorizeComponent} from './components/unauthorize/unauthorize.component';
 import {RegisterUserGuard} from './guards/register-user.guard';
+import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -38,13 +39,17 @@ const routes: Routes = [
     component: UnauthorizeComponent
   },
   {
+    path: 'page-not-found',
+    component: PageNotFoundComponent
+  },
+  {
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
     canActivate: [AuthGuard]
   },
   {
     path: '**',
-    redirectTo: 'login',
+    redirectTo: 'page-not-found',
     pathMatch: 'full'
   }
 ];

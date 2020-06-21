@@ -1,129 +1,131 @@
-<nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar"
-            nzCollapsible
-            nzWidth="256px"
-            nzBreakpoint="md"
-            [(nzCollapsed)]="isCollapsed"
-            [nzTrigger]="null">
-    <div class="sidebar-logo">
-      <a>
-        <img src="../../assets/images/cms-logo.png" alt="logo">
-        <h1>Welcome {{userName}}</h1>
-      </a>
-    </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-menu-item routerLink="home" routerLinkActive="ant-menu-item-selected">
-        <i nz-icon nzType="dashboard"></i>
-        <span>Dashboard</span>
-      </li>
-      <li nz-submenu nzTitle="Campaign" nzIcon="notification"
-          *ngIf="userService.userDetails.viewCampaignAccess || userService.userDetails.viewQuickCampaignAccess">
-        <ul>
-          <li
-            *ngIf="userService.userDetails.viewCampaignAccess"
-            nz-menu-item routerLink="campaign" routerLinkActive="ant-menu-item-selected">Campaign
-          </li>
-          <li
-            *ngIf="userService.userDetails.viewQuickCampaignAccess"
-            nz-menu-item routerLink="quick-campaign-list" routerLinkActive="ant-menu-item-selected">Quick Campaign
-          </li>
-        </ul>
-      </li>
-      <li *ngIf="userService.userDetails.hasReportAccess" nz-submenu nzTitle="Reports" nzIcon="area-chart"
-          routerLinkActive="ant-menu-item-selected">
-        <ul>
-          <li nz-menu-item routerLink="report" routerLinkActive="ant-menu-item-selected">Data reports</li>
-          <li nz-menu-item routerLink="graph" routerLinkActive="ant-menu-item-selected">Graph</li>
-        </ul>
-      </li>
-      <li *ngIf="userService.userDetails.uploadCustomerAccess" nz-menu-item routerLink="upload-spreadsheet"
-          routerLinkActive="ant-menu-item-selected">
-        <i nz-icon nzType="upload"></i>
-        <span>Upload SpreadSheet</span>
-      </li>
-      <li
-        *ngIf="userService.userDetails.viewTemplateAccess"
-        nz-menu-item routerLink="email-template" routerLinkActive="ant-menu-item-selected">
-        <i nz-icon nzType="snippets"></i>
-        <span>Email Templates</span>
-      </li>
-      <li *ngIf="userService.userDetails.viewTemplateAccess" nz-menu-item
-          routerLink="brand-list" routerLinkActive="ant-menu-item-selected">
-        <i nz-icon nzType="bold"></i>
-        <span>Brands</span>
-      </li>
-      <li *ngIf="userService.userDetails.addUserAccess" nz-menu-item routerLink="roles"
-          routerLinkActive="ant-menu-item-selected">
-        <i nz-icon nzType="usergroup-add"></i>
-        <span>Roles</span>
-      </li>
-    </ul>
-  </nz-sider>
-  <nz-layout>
-    <nz-header>
-      <div class="app-header">
-        <div>
+<ng-template [ngIf]="role">
+  <nz-layout class="app-layout">
+    <nz-sider class="menu-sidebar"
+              nzCollapsible
+              nzWidth="256px"
+              nzBreakpoint="md"
+              [(nzCollapsed)]="isCollapsed"
+              [nzTrigger]="null">
+      <div class="sidebar-logo">
+        <a>
+          <img src="../../assets/images/cms-logo.png" alt="logo">
+          <h1>Welcome {{userName}}</h1>
+        </a>
+      </div>
+      <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+        <li nz-menu-item routerLink="home" routerLinkActive="ant-menu-item-selected">
+          <i nz-icon nzType="dashboard"></i>
+          <span>Dashboard</span>
+        </li>
+        <li nz-submenu nzTitle="Campaign" nzIcon="notification"
+            *ngIf="userService.userDetails.viewCampaignAccess || userService.userDetails.viewQuickCampaignAccess">
+          <ul>
+            <li
+              *ngIf="userService.userDetails.viewCampaignAccess"
+              nz-menu-item routerLink="campaign" routerLinkActive="ant-menu-item-selected">Campaign
+            </li>
+            <li
+              *ngIf="userService.userDetails.viewQuickCampaignAccess"
+              nz-menu-item routerLink="quick-campaign-list" routerLinkActive="ant-menu-item-selected">Quick Campaign
+            </li>
+          </ul>
+        </li>
+        <li *ngIf="userService.userDetails.hasReportAccess" nz-submenu nzTitle="Reports" nzIcon="area-chart"
+            routerLinkActive="ant-menu-item-selected">
+          <ul>
+            <li nz-menu-item routerLink="report" routerLinkActive="ant-menu-item-selected">Data reports</li>
+            <li nz-menu-item routerLink="graph" routerLinkActive="ant-menu-item-selected">Graph</li>
+          </ul>
+        </li>
+        <li *ngIf="userService.userDetails.uploadCustomerAccess" nz-menu-item routerLink="upload-spreadsheet"
+            routerLinkActive="ant-menu-item-selected">
+          <i nz-icon nzType="upload"></i>
+          <span>Upload SpreadSheet</span>
+        </li>
+        <li
+          *ngIf="userService.userDetails.viewTemplateAccess"
+          nz-menu-item routerLink="email-template" routerLinkActive="ant-menu-item-selected">
+          <i nz-icon nzType="snippets"></i>
+          <span>Email Templates</span>
+        </li>
+        <li *ngIf="userService.userDetails.viewTemplateAccess" nz-menu-item
+            routerLink="brand-list" routerLinkActive="ant-menu-item-selected">
+          <i nz-icon nzType="bold"></i>
+          <span>Brands</span>
+        </li>
+        <li *ngIf="userService.userDetails.addUserAccess" nz-menu-item routerLink="roles"
+            routerLinkActive="ant-menu-item-selected">
+          <i nz-icon nzType="usergroup-add"></i>
+          <span>Roles</span>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout>
+      <nz-header>
+        <div class="app-header">
+          <div>
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
             <i class="trigger"
                nz-icon
                [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
             ></i>
         </span>
+          </div>
+          <div>
+            <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click">
+              {{userName}}
+              <i nz-icon nzType="down"></i>
+            </a>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu nzSelectable>
+                <li nz-menu-item (click)="showLogoutConfirmation()">Logout</li>
+                <li nz-menu-item (click)="showResetPasswordModal()">Reset Password</li>
+                <li nz-menu-item *ngIf="userService.userDetails.addUserAccess" routerLink="/register-user">Add
+                  User
+                </li>
+              </ul>
+            </nz-dropdown-menu>
+          </div>
         </div>
-        <div>
-          <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click">
-            {{userName}}
-            <i nz-icon nzType="down"></i>
-          </a>
-          <nz-dropdown-menu #menu="nzDropdownMenu">
-            <ul nz-menu nzSelectable>
-              <li nz-menu-item (click)="showLogoutConfirmation()">Logout</li>
-              <li nz-menu-item (click)="showResetPasswordModal()">Reset Password</li>
-              <li nz-menu-item *ngIf="userService.userDetails.addUserAccess" routerLink="/register-user">Add
-                User
-              </li>
-            </ul>
-          </nz-dropdown-menu>
+      </nz-header>
+      <nz-content>
+        <div class="inner-content">
+          <router-outlet></router-outlet>
         </div>
-      </div>
-    </nz-header>
-    <nz-content>
-      <div class="inner-content">
-        <router-outlet></router-outlet>
-      </div>
-    </nz-content>
+      </nz-content>
+    </nz-layout>
   </nz-layout>
-</nz-layout>
-<nz-modal
-  [(nzVisible)]="resetPasswordModelVisible"
-  [nzTitle]="resetPasswordTitle"
-  [nzContent]="resetPasswordContent"
-  [nzFooter]="resetPasswordFooter"
-  (nzOnCancel)="resetPasswordCancel()"
->
-  <ng-template #resetPasswordTitle>
-    Reset Password
-  </ng-template>
+  <nz-modal
+    [(nzVisible)]="resetPasswordModelVisible"
+    [nzTitle]="resetPasswordTitle"
+    [nzContent]="resetPasswordContent"
+    [nzFooter]="resetPasswordFooter"
+    (nzOnCancel)="resetPasswordCancel()"
+  >
+    <ng-template #resetPasswordTitle>
+      Reset Password
+    </ng-template>
 
-  <ng-template #resetPasswordContent>
-    <form nz-form [formGroup]="resetPassword">
-      <nz-form-item>
-        <nz-form-control nzHasFeedback nzErrorTip="{{resetOldPassword}}">
-          <input nz-input type="password" formControlName="cur_pwd" placeholder="Old password"/>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control nzHasFeedback nzErrorTip="{{resetNewPassword}}">
-          <input nz-input type="password" formControlName="new_pwd" placeholder="New password"/>
-        </nz-form-control>
-      </nz-form-item>
-    </form>
-  </ng-template>
+    <ng-template #resetPasswordContent>
+      <form nz-form [formGroup]="resetPassword">
+        <nz-form-item>
+          <nz-form-control nzHasFeedback nzErrorTip="{{resetOldPassword}}">
+            <input nz-input type="password" formControlName="cur_pwd" placeholder="Old password"/>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzHasFeedback nzErrorTip="{{resetNewPassword}}">
+            <input nz-input type="password" formControlName="new_pwd" placeholder="New password"/>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </ng-template>
 
-  <ng-template #resetPasswordFooter>
-    <button nz-button nzType="default" (click)="resetPasswordCancel()">Cancel</button>
-    <button nz-button nzType="primary" (click)="resetPasswordOk()"
-            [disabled]="!resetPassword.valid" [nzLoading]="isConfirmLoading">Reset Password
-    </button>
-  </ng-template>
-</nz-modal>
+    <ng-template #resetPasswordFooter>
+      <button nz-button nzType="default" (click)="resetPasswordCancel()">Cancel</button>
+      <button nz-button nzType="primary" (click)="resetPasswordOk()"
+              [disabled]="!resetPassword.valid" [nzLoading]="isConfirmLoading">Reset Password
+      </button>
+    </ng-template>
+  </nz-modal>
+</ng-template>

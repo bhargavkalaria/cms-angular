@@ -48,4 +48,5 @@ export class Urls {
   static getEmailTemplateById = Urls.baseUrl + 'TemplateApi/GetTemplate?id=';
   static updateEmailTemplate = Urls.baseUrl + 'TemplateApi/UpdateTemplate';
   static deleteEmailTemplate = Urls.baseUrl + 'TemplateApi/DeleteTemplate?id=';
+  static getUserByEmail = Urls.baseUrl + 'LoginApi/GetUser?email=';
 }

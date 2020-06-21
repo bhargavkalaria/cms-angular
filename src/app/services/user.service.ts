@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Urls} from '../utils/urls';
 import {UserModel} from '../models/userModel';
 import {EncryptDecryptService} from './encrypt-decrypt.service';
+import {Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import {EncryptDecryptService} from './encrypt-decrypt.service';
 export class UserService {
   isLoading = false;
   userDetails: UserModel;
+  getUserDataOnChange = new Subject();
 
   constructor(private router: Router, private http: HttpClient, private encryptDecryptService: EncryptDecryptService) {
   }
@@ -29,6 +31,17 @@ export class UserService {
   login(user: UserModel) {
     return new Promise((resolve, reject) => {
       return this.http.post(Urls.login, user)
+        .subscribe((res: any) => {
+          resolve(res);
+        }, err => {
+          reject(err);
+        });
+    });
+  }
+
+  getUser(email: string) {
+    return new Promise((resolve, reject) => {
+      return this.http.get(Urls.getUserByEmail + email)
         .subscribe((res: any) => {
           resolve(res);
         }, err => {
@@ -85,10 +98,12 @@ export class UserService {
     if (this.getIsRemember()) {
       const userData: UserModel = this.encryptDecryptService.decrypt(localStorage.getItem('userDetails'));
       this.userDetails = userData;
+      this.getUserDataOnChange.next(userData);
       return userData.Role;
     } else {
       const userData: UserModel = this.encryptDecryptService.decrypt(sessionStorage.getItem('userDetails'));
       this.userDetails = userData;
+      this.getUserDataOnChange.next(userData);
       return userData.Role;
     }
   }
@@ -126,8 +141,10 @@ export class UserService {
   setUserData(userData, isRemember) {
     localStorage.setItem('isRemember', isRemember);
     if (isRemember) {
+      this.userDetails = userData;
       localStorage.setItem('userDetails', this.encryptDecryptService.encrypt(userData));
     } else {
+      this.userDetails = userData;
       sessionStorage.setItem('userDetails', this.encryptDecryptService.encrypt(userData));
     }
     this.router.navigate(['dashboard']);
