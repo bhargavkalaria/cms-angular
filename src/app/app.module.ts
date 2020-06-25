@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {registerLocaleData} from '@angular/common';
 import en from '@angular/common/locales/en';
@@ -22,7 +22,8 @@ import {NotificationService} from './services/notification.service';
 import {EncryptDecryptService} from './services/encrypt-decrypt.service';
 import {UnauthorizeComponent} from './components/unauthorize/unauthorize.component';
 import {AuthGuard} from './guards/auth.guard';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
+import {TokenInterceptor} from './token-interceptor/token.interceptor';
 
 registerLocaleData(en);
 const ngZorroConfig: NzConfig = {
@@ -54,7 +55,12 @@ const ngZorroConfig: NzConfig = {
     {provide: NZ_CONFIG, useValue: ngZorroConfig},
     UserService,
     NotificationService,
-    EncryptDecryptService
+    EncryptDecryptService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
   ],
   bootstrap: [AppComponent]
 })
